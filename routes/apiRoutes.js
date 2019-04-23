@@ -1,5 +1,7 @@
-// module.exports = () => {
-//   app.get("/", (req, res) => {
-//
-//   });
-// };
+const axxxios = require("./axiosRoutes");
+axxxios.fetchAll();
+module.exports = (app, dotenv) => {
+  app.get("/api/all", (req, res) => {
+    console.log("hi");
+  });
+};
