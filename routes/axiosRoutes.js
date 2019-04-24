@@ -1,20 +1,11 @@
 const axios = require("axios");
 const path = require("path");
 const dotenv = require('dotenv').config({ path: '/Users/ptascio/Documents/MyTrilogyHWs/hopsifyV2/.env' });
-console.log('this is loaded');
-
-
-// axios.defaults.headers.common['Authorization'] = "Basic "+ process.env.SPOTIFY_KEY+":" + process.env.SPOTIFY_SECRET;
-const querystring = require('querystring');
-console.log(axios.defaults);
-exports.spotify = {
-  id: process.env.SPOTIFY_KEY,
-  secret: process.env.SPOTIFY_SECRET
-};
-
+console.log('axios is loaded');
 
 const axiosReq =  {
-    fetchToken: () => {axios({
+    fetchToken: () => {
+      return axios({
       url: "https://accounts.spotify.com/api/token",
       method: "post",
       params: {grant_type: 'client_credentials'},
@@ -28,11 +19,34 @@ const axiosReq =  {
       }
   })
     .then((response) => {
-      console.log("axios response:" + JSON.stringify(response.data));
+      console.log("in axios");
+      return JSON.stringify(response.data.access_token);
     })
     .catch((error) => {
       console.log("axios error: " + error);
     });
+  },
+  //GET https://api.spotify.com/v1/audio-analysis/{id}
+  fetchTrack: (spotifyToken, id) => {
+    axios({
+
+    url: `https://api.spotify.com/v1/tracks/${id}`,
+    method: "get",
+    headers: {
+      "Accept": "application/json",
+      "Authorization": `Bearer ${spotifyToken}`,
+      "Content-Type": "application/json",
+
+    },
+    json: true
+  })
+  .then((response) => {
+    console.log("axios response:"+response);
+  })
+  .catch((error) => {
+    console.log("axios error: " + error);
+  });
+
   }
 };
 

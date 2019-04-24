@@ -1,4 +1,5 @@
 require("dotenv").config();
+var axios = require("./routes/axiosRoutes");
 
 const express = require("express");
 const app = express();
