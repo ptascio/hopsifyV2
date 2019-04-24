@@ -1,4 +1,4 @@
-const axios = require("./axiosRoutes");
+const axios = require("./axiosFunctions");
 var spotifyToken;
 
 
@@ -9,7 +9,7 @@ module.exports = (app) => {
 
   app.get("/api/track", (req, res) => {
     if(spotifyToken){
-      axios.fetchTrack(spotifyToken, "11dFghVXANMlKmJXsNCbNl");
+      axios.fetchTrackByName("metallica", "sad but true", spotifyToken);
     }
   });
 };

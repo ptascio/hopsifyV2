@@ -26,9 +26,25 @@ const axiosReq =  {
       console.log("axios error: " + error);
     });
   },
+
+  fetchTrackByName: (artist, song, spotifyToken) => {
+    var queryUrl = `https://api.spotify.com/v1/search?q=artist:${artist}+track:${song}&type=track`;
+    axios({
+      url: queryUrl,
+      method: "get",
+      headers: {
+        "Authorization": `Bearer ${spotifyToken}`,
+      }
+    })
+    .then((track) => {
+      console.log("fetched track: " + JSON.stringify(track.data.tracks, null, 2));
+    })
+    .catch((error) => {
+      console.log("track error: " + error);
+    });
+  },
   //GET https://api.spotify.com/v1/audio-analysis/{id}
-  fetchTrack: (spotifyToken, id) => {
-    console.log(`Bearer ${spotifyToken}`);
+  fetchTrackById: (spotifyToken, id) => {
     axios({
 
     url: `https://api.spotify.com/v1/tracks/${id}`,
