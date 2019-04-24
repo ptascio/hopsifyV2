@@ -14,7 +14,7 @@ exports.spotify = {
 
 
 const axiosReq =  {
-    fetchAll: () => {axios({
+    fetchToken: () => {axios({
       url: "https://accounts.spotify.com/api/token",
       method: "post",
       params: {grant_type: 'client_credentials'},

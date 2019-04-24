@@ -1,7 +1,8 @@
-const axxxios = require("./axiosRoutes");
+const axios = require("./axiosRoutes");
+var spotifyToken;
 
 module.exports = (app, dotenv) => {
   app.get("/api/all", (req, res) => {
-    axxxios.fetchAll();
+    axios.fetchToken();
   });
 };
