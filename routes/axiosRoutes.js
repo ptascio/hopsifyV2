@@ -20,7 +20,7 @@ const axiosReq =  {
   })
     .then((response) => {
       console.log("in axios");
-      return JSON.stringify(response.data.access_token);
+      return response.data.access_token;
     })
     .catch((error) => {
       console.log("axios error: " + error);
@@ -28,6 +28,7 @@ const axiosReq =  {
   },
   //GET https://api.spotify.com/v1/audio-analysis/{id}
   fetchTrack: (spotifyToken, id) => {
+    console.log(`Bearer ${spotifyToken}`);
     axios({
 
     url: `https://api.spotify.com/v1/tracks/${id}`,
@@ -41,7 +42,7 @@ const axiosReq =  {
     json: true
   })
   .then((response) => {
-    console.log("axios response:"+response);
+    console.log("axios response:"+JSON.stringify(response.data));
   })
   .catch((error) => {
     console.log("axios error: " + error);
