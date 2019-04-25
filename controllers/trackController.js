@@ -3,13 +3,15 @@ var spotifyToken;
 
 
 module.exports = (app) => {
-  axios.fetchToken().then((token) => {
-    spotifyToken = token;
-  });
+  // axios.fetchToken().then((token) => {
+  //   spotifyToken = token;
+  // });
 
   app.get("/api/track", (req, res) => {
-    if(spotifyToken){
-      axios.fetchTrackByName("metallica", "sad but true", spotifyToken);
-    }
+    console.log("in get request");
+    console.log(req.query);
+    // if(spotifyToken){
+    //   axios.fetchTrackByName("metallica", "sad but true", spotifyToken);
+    // }
   });
 };
