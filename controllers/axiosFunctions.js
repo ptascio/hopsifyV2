@@ -29,7 +29,7 @@ const axiosReq =  {
 
   fetchTrackByName: (artist, song, spotifyToken) => {
     var queryUrl = `https://api.spotify.com/v1/search?q=artist:${artist}+track:${song}&type=track`;
-    axios({
+    return axios({
       url: queryUrl,
       method: "get",
       headers: {
@@ -37,7 +37,7 @@ const axiosReq =  {
       }
     })
     .then((track) => {
-      console.log("fetched track: " + JSON.stringify(track.data.tracks, null, 2));
+      return track.data.tracks;
     })
     .catch((error) => {
       console.log("track error: " + error);
