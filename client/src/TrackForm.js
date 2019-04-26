@@ -1,4 +1,5 @@
 import React from 'react';
+const axios = require("axios");
 
 class TrackForm extends React.Component {
   constructor(props){
@@ -13,13 +14,20 @@ class TrackForm extends React.Component {
   }
 
   handleChange(e){
-    this.setState({[e.target.name]: [e.target.value]});
+    this.setState({[e.target.name]: e.target.value});
   }
 
   handleSubmit(e){
     e.preventDefault();
-    console.log('artistName: ' + this.state.artistName);
-    console.log('trackName: ' + this.state.trackName);
+    axios({
+      url: "/api/track",
+      method: "get",
+      params: {
+        artistName: this.state.artistName,
+        trackName: this.state.trackName
+      }
+    });
+  
   }
 
   render(){
