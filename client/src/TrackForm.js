@@ -26,8 +26,10 @@ class TrackForm extends React.Component {
         artistName: this.state.artistName,
         trackName: this.state.trackName
       }
+    }).then((response) => {
+      console.log(response);
     });
-  
+
   }
 
   render(){
