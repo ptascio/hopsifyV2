@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":  "node_modules/.bin/concurrently \"node server.js\" \"cd client && npm start\"",
-    "startNode": "node server.js"
+    "startBoth":  "node_modules/.bin/concurrently \"node server.js\" \"cd client && npm start\"",
+    "start": "node server.js",
+    "heroku-postbuild":"cd client && npm install & npm run build"
   },
   "repository": {
     "type": "git",
