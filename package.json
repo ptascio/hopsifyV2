@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "npm start --prefix client",
     "dev": "node_modules/.bin/concurrently \"node server.js\" \"npm run client\"",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
