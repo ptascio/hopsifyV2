@@ -14,7 +14,7 @@ module.exports = (app) => {
     if(spotifyToken && artist && track){
       axios.fetchTrackByName(artist, track, spotifyToken).then((response) => {
         console.log("Yes, in API response");
-        res.json(response.items);
+        res.json(response);
       });
     }else{
       res.json("Sorry, something went wrong. Did you fill in both fields?");
