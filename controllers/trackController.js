@@ -1,5 +1,6 @@
 const axios = require("./axiosFunctions");
 var spotifyToken;
+var db = require("../models");
 
 
 module.exports = (app) => {
@@ -11,10 +12,18 @@ module.exports = (app) => {
     console.log("in get request");
     var artist = req.query.artistName;
     var track = req.query.trackName;
+
+
+
     if(spotifyToken && artist && track){
-      axios.fetchTrackByName(artist, track, spotifyToken).then((response) => {
-        console.log("Yes, in API response");
-        res.json(response);
+      db.TrackSearch.create({
+        track_name: req.query.trackName,
+        artist_name: req.query.artistName
+      }).then(() => {
+        axios.fetchTrackByName(artist, track, spotifyToken).then((response) => {
+          console.log("Yes, in API response");
+          res.json(response);
+        });
       });
     }else{
       res.json("Sorry, something went wrong. Did you fill in both fields?");
