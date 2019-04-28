@@ -28,7 +28,7 @@ class TrackForm extends React.Component {
       }
     }).then((response) => {
       console.log("in response form");
-      console.log(response);
+      console.log(response.data);
     });
 
   }
