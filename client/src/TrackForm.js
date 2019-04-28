@@ -27,6 +27,7 @@ class TrackForm extends React.Component {
         trackName: this.state.trackName
       }
     }).then((response) => {
+      console.log("in response form");
       console.log(response);
     });
 
