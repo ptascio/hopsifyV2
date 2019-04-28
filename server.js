@@ -12,7 +12,6 @@ const port = process.env.PORT || 3001;
 // const staticFiles = express.static(path.join(__dirname, 'client/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'client/public')));
 
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/client/build')));
@@ -20,6 +19,8 @@ if(process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/client/build/index.html'));
   });
+}else {
+  app.use(express.static(path.join(__dirname, 'client/public')));
 }
 // app.get('*', (req, res) => {
 //
