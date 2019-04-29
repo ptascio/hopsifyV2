@@ -1,9 +1,6 @@
 const axios = require("axios");
 const path = require("path");
 const dotenv = require('dotenv').config({ path: '/Users/ptascio/Documents/MyTrilogyHWs/hopsifyV2/.env' });
-console.log('axios is loaded');
-console.log('key: ' + process.env.SPOTIFY_KEY);
-console.log('key: ' + process.env.SPOTIFY_SECRET);
 const axiosReq =  {
     fetchToken: () => {
       return axios({
@@ -20,7 +17,6 @@ const axiosReq =  {
       }
   })
     .then((response) => {
-      console.log("in axios response");
       return response.data.access_token;
     })
     .catch((error) => {

@@ -6,16 +6,12 @@ var db = require("../models");
 module.exports = (app) => {
   axios.fetchToken().then((token) => {
     spotifyToken = token;
-    console.log("token: " + spotifyToken);
   });
 
   app.get("/api/track", (req, res) => {
     console.log("in get request");
     var artist = req.query.artistName;
     var track = req.query.trackName;
-
-
-
     if(spotifyToken && artist && track){
       db.TrackSearch.create({
         track_name: req.query.trackName,
