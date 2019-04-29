@@ -20,7 +20,7 @@ const axiosReq =  {
       }
   })
     .then((response) => {
-      console.log("in axios");
+      console.log("in axios response");
       return response.data.access_token;
     })
     .catch((error) => {

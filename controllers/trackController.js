@@ -6,6 +6,7 @@ var db = require("../models");
 module.exports = (app) => {
   axios.fetchToken().then((token) => {
     spotifyToken = token;
+    console.log("token: " + spotifyToken);
   });
 
   app.get("/api/track", (req, res) => {
@@ -26,6 +27,7 @@ module.exports = (app) => {
         });
       });
     }else{
+      console.log("request failed");
       res.json("Sorry, something went wrong. Did you fill in both fields?");
     }
   });
