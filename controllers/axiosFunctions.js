@@ -41,22 +41,22 @@ const axiosReq =  {
     });
   },
   //GET https://api.spotify.com/v1/audio-analysis/{id}
-  fetchTrackById: (spotifyToken, id) => {
+  fetchTrackById: (spotifyToken, kind, id) => {
     return axios({
-    url: `https://api.spotify.com/v1/audio-features/${id}`,
-    method: "get",
-    headers: {
-      "Authorization": `Bearer ${spotifyToken}`,
-    }
-  })
-  .then((response) => {
-    return response.data;
-  })
-  .catch((error) => {
-    console.log("axios error: " + error);
-  });
-
+      url: `https://api.spotify.com/v1/${kind}/${id}`,
+      method: "get",
+      headers: {
+        "Authorization": `Bearer ${spotifyToken}`,
+      }
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log("axios error: " + error);
+    });
   }
+
 };
 
 module.exports = axiosReq;

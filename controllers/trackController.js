@@ -19,8 +19,8 @@ module.exports = (app) => {
       // }).then(() => {
         axios.fetchTrackByName(artist, track, spotifyToken)
         .then((response) => {
-          console.log(response.items[0].id);
-          axios.fetchTrackById(spotifyToken, response.items[0].id)
+          var id = response.items[0].id;
+          axios.fetchTrackById(spotifyToken, "tracks", id)
           .then((trackInfo) => {
             res.send(trackInfo);
           });
