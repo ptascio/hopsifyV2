@@ -7,14 +7,13 @@ var db = require("./models");
 const app = express();
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // const staticFiles = express.static(path.join(__dirname, 'client/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 if(process.env.NODE_ENV === 'production') {
-  console.log("in production");
   app.use(express.static(path.join(__dirname, '/client/build')));
 
   app.get('/', (req, res) => {
