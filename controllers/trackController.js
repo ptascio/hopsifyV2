@@ -24,7 +24,7 @@ module.exports = (app) => {
       });
     }else{
       console.log("request failed");
-      res.json("Sorry, something went wrong. Did you fill in both fields?");
+      res.send("Sorry, something went wrong. Did you fill in both fields?");
     }
   });
 };
