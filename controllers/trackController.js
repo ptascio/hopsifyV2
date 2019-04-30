@@ -19,7 +19,7 @@ module.exports = (app) => {
       }).then(() => {
         axios.fetchTrackByName(artist, track, spotifyToken).then((response) => {
           console.log("Yes, in API response");
-          res.json(response);
+          res.send(response);
         });
       });
     }else{
