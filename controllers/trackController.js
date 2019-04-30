@@ -17,9 +17,15 @@ module.exports = (app) => {
       //   track_name: req.query.trackName,
       //   artist_name: req.query.artistName
       // }).then(() => {
-        axios.fetchTrackByName(artist, track, spotifyToken).then((response) => {
-          console.log("Yes, in API response");
-          res.send(response);
+        axios.fetchTrackByName(artist, track, spotifyToken)
+        .then((response) => {
+          console.log(response.items[0].id);
+          axios.fetchTrackById(spotifyToken, response.items[0].id)
+          .then((trackInfo) => {
+            res.send(trackInfo);
+          });
+        }).catch((error) => {
+          console.log("there was an error here: " + error);
         });
       // });
     }else{
