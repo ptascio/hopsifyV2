@@ -19,7 +19,6 @@ class TrackForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    console.log("artist and band: " + this.state.artistName +  this.state.trackName);
     axios({
       url: "/api/track",
       method: "get",
