@@ -20,6 +20,7 @@ if(process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '/client/build/index.html'));
   });
 }else {
+  console.log("not in production");
   app.use(express.static(path.join(__dirname, 'client/public')));
 }
 // app.get('*', (req, res) => {
