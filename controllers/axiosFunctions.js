@@ -25,7 +25,6 @@ const axiosReq =  {
   },
 
   fetchTrackByName: (artist, song, spotifyToken) => {
-    console.log("fetchTrackByName");
     var queryUrl = `https://api.spotify.com/v1/search?q=artist:${artist}+track:${song}&type=track`;
     return axios({
       url: queryUrl,
@@ -43,20 +42,15 @@ const axiosReq =  {
   },
   //GET https://api.spotify.com/v1/audio-analysis/{id}
   fetchTrackById: (spotifyToken, id) => {
-    axios({
-
-    url: `https://api.spotify.com/v1/tracks/${id}`,
+    return axios({
+    url: `https://api.spotify.com/v1/audio-features/${id}`,
     method: "get",
     headers: {
-      "Accept": "application/json",
       "Authorization": `Bearer ${spotifyToken}`,
-      "Content-Type": "application/json",
-
-    },
-    json: true
+    }
   })
   .then((response) => {
-    console.log("axios response:"+JSON.stringify(response.data));
+    return response.data;
   })
   .catch((error) => {
     console.log("axios error: " + error);
