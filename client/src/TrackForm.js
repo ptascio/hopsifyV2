@@ -1,5 +1,7 @@
 import React from 'react';
+import BandInfo from "./BandInfo";
 const axios = require("axios");
+
 
 class TrackForm extends React.Component {
   constructor(props){
@@ -28,7 +30,8 @@ class TrackForm extends React.Component {
       }
     }).then((response) => {
       console.log("in response form");
-      console.log(response);
+      console.log(response.data);
+      return <BandInfo band={response.data}/>;
     });
 
   }
