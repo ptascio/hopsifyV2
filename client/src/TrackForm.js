@@ -8,7 +8,9 @@ class TrackForm extends React.Component {
     super(props);
     this.state = {
       trackName: '',
-      artistName: ''
+      artistName: '',
+      bandInfo: "",
+      submitted: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,14 +32,20 @@ class TrackForm extends React.Component {
       }
     }).then((response) => {
       console.log("in response form");
-      console.log(response.data);
-      return <BandInfo band={response.data}/>;
+      var band = JSON.stringify(response.data);
+      console.log(band);
+      this.setState({
+        bandInfo: band,
+        submitted: true
+      });
     });
 
   }
 
   render(){
     return(
+      <div>
+        {this.state.submitted}
       <form onSubmit={this.handleSubmit}>
         <label>Artist Name:
           <input name="artistName" type="text" onChange={this.handleChange}/>
@@ -47,6 +55,8 @@ class TrackForm extends React.Component {
         </label><br />
           <input type="submit" value="Submit"/>
       </form>
+      {this.state.submitted && <BandInfo band={this.state.bandInfo}/>}
+    </div>
     );
   }
 }
