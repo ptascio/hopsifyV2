@@ -3,7 +3,15 @@ import React from 'react';
 class BandInfo extends React.Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      bandString: ""
+    };
+  }
+
+  componentDidMount(){
+    this.setState({
+      bandString: this.props.band
+    });
   }
 
   render(){

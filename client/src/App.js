@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import TrackForm from './TrackForm';
+// import BandInfo from "./BandInfo";
 
 class App extends React.Component {
   constructor(props){
