@@ -36,7 +36,9 @@ class TrackForm extends React.Component {
       console.log(band);
       this.setState({
         bandInfo: band,
-        submitted: true
+        submitted: true,
+        trackName: "",
+        artistName: ""
       });
     });
 
@@ -48,10 +50,10 @@ class TrackForm extends React.Component {
         {this.state.submitted}
       <form onSubmit={this.handleSubmit}>
         <label>Artist Name:
-          <input name="artistName" type="text" onChange={this.handleChange}/>
+          <input name="artistName" type="text" value={this.state.artistName} onChange={this.handleChange}/>
         </label><br />
         <label>Track Name:
-          <input name="trackName" type="text" onChange={this.handleChange}/>
+          <input name="trackName" type="text" value={this.state.trackName} onChange={this.handleChange}/>
         </label><br />
           <input type="submit" value="Submit"/>
       </form>
