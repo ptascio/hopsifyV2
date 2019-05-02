@@ -1,7 +1,8 @@
 import React from 'react';
+import { BrowserRouter as Switch, Router, Route, Link } from "react-router-dom";
 import './App.css';
 import TrackForm from './TrackForm';
-// import BandInfo from "./BandInfo";
+import BandInfo from "./BandInfo";
 
 class App extends React.Component {
   constructor(props){
@@ -20,8 +21,10 @@ class App extends React.Component {
     return (
 
     <div className="App">
-
-      <TrackForm />
+      <Switch>
+        <Route path="/form" component={TrackForm}/>
+        <Route path="/bandInfo" component={BandInfo} />
+      </Switch>
     </div>
   );
 }

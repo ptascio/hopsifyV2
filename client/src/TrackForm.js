@@ -33,15 +33,20 @@ class TrackForm extends React.Component {
     }).then((response) => {
       console.log("in response form");
       var band = JSON.stringify(response.data);
-      console.log(band);
       this.setState({
         bandInfo: band,
         submitted: true,
         trackName: "",
         artistName: ""
+      }).then(() => {
+        this.props.history.push("/bandInfo");
       });
     });
 
+  }
+
+  sendToBandInfo(){
+    
   }
 
   render(){
