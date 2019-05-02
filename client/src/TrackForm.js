@@ -41,7 +41,7 @@ class TrackForm extends React.Component {
         submitted: true,
         trackName: "",
         artistName: ""
-      }, this.sendToBandInfo);
+      }, () => this.props.getBandInfo(this.state.bandInfo));
     });
 
   }
@@ -63,7 +63,6 @@ class TrackForm extends React.Component {
         </label><br />
           <input type="submit" value="Submit"/>
       </form>
-      {this.state.submitted && <BandInfo band={this.state.bandInfo}/>}
     </div>
     );
   }
