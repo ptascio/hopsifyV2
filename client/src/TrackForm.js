@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Route } from "react-router-dom";
+
 import BandInfo from "./BandInfo";
 const axios = require("axios");
 
@@ -15,6 +17,7 @@ class TrackForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.sendToBandInfo = this.sendToBandInfo.bind(this);
   }
 
   handleChange(e){
@@ -38,15 +41,13 @@ class TrackForm extends React.Component {
         submitted: true,
         trackName: "",
         artistName: ""
-      }).then(() => {
-        this.props.history.push("/bandInfo");
-      });
+      }, this.sendToBandInfo);
     });
 
   }
 
   sendToBandInfo(){
-    
+    this.props.history.push("/bandInfo");
   }
 
   render(){

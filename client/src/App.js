@@ -7,8 +7,14 @@ import BandInfo from "./BandInfo";
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      bandStuff: ""
+    };
     this.connectToServer = this.connectToServer.bind(this);
+  }
+
+  addSomething(stateValueFromForm) {
+        this.setState({fromParent: stateValueFromForm});
   }
   connectToServer(){
     fetch("/");
@@ -23,7 +29,7 @@ class App extends React.Component {
     <div className="App">
       <Switch>
         <Route path="/form" component={TrackForm}/>
-        <Route path="/bandInfo" component={BandInfo} />
+
       </Switch>
     </div>
   );
