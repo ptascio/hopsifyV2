@@ -68,4 +68,5 @@ class TrackForm extends React.Component {
   }
 }
 
+// export default withRouter(observer(MyComponent))
 export default TrackForm;
