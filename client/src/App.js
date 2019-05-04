@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Switch, Router, Route, Link } from "react-router-dom";
-import { Redirect } from "react-router";
+import { BrowserRouter as Switch, Router, Redirect, Route, Link } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import './App.css';
 import TrackForm from './TrackForm';
 import BandInfo from "./BandInfo";
@@ -45,17 +45,22 @@ class App extends React.Component {
 
     <div className="App">
 
-      <p>{this.state.bandStuff}</p>
+
       <Switch>
 
         <Route path="/form"
           render={(props) => <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>}
       />
-    {
-      this.state.redirect && <Route path="/bandInfo"
-        render={(props) => <BandInfo {...props} band={this.state.bandInfo}/>}
-    />
-    }
+    {this.state.bandInfo && <Route path="/bandInfo"
+       render={(props) => <BandInfo {...props} band={this.state.bandStuff}/>}
+    />}
+    <Route exact path="/form" render={()=>(
+              this.state.redirect ? <Redirect to="/bandInfo" /> : null
+            )} />
+          <Route path="/bandInfo" render={()=>(<BandInfo band={this.state.bandStuff}/>)} />
+
+
+
 
 
       </Switch>
@@ -65,5 +70,5 @@ class App extends React.Component {
 }
 
 
-
-export default App;
+export default withRouter(App);
+// export default App;
