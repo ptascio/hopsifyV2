@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
+import { createBrowserHistory } from "history";
+
+const customHistory = createBrowserHistory();
 ReactDOM.render(
-// <BrowserRouter>
-  <App />,
-  //</BrowserRouter>
+<BrowserRouter history={customHistory}>
+  <App />
+  </BrowserRouter>,
   document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

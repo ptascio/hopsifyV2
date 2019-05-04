@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 
 class BandInfo extends React.Component {
   constructor(props){
@@ -9,6 +10,7 @@ class BandInfo extends React.Component {
   }
 
   componentDidMount(){
+    console.log(this.props.history);
     this.setState({
       bandString: this.props.band
     });
@@ -23,5 +25,5 @@ class BandInfo extends React.Component {
     );
   }
 }
-
-export default BandInfo;
+export default withRouter(BandInfo);
+// export default BandInfo;
