@@ -41,7 +41,7 @@ class TrackForm extends React.Component {
         submitted: true,
         trackName: "",
         artistName: ""
-      }, () => this.props.getBandInfo(this.state.bandInfo));
+      }, (stuff) => this.props.getBandInfo(this.state.bandInfo));
     });
 
   }
