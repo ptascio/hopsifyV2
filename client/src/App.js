@@ -47,7 +47,7 @@ class App extends React.Component {
 
 
       <Switch>
-
+        <div>
         <Route path="/form"
           render={(props) => <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>}
       />
@@ -59,7 +59,7 @@ class App extends React.Component {
             )} />
           <Route path="/bandInfo" render={()=>(<BandInfo band={this.state.bandStuff}/>)} />
 
-
+</div>
 
 
 
@@ -70,5 +70,5 @@ class App extends React.Component {
 }
 
 
-export default withRouter(App);
-// export default App;
+// export default withRouter(App);
+export default App;
