@@ -24,7 +24,7 @@ class App extends React.Component {
   getBandInfo(stateValueFromForm) {
       this.setState({
         bandStuff: stateValueFromForm,
-        redirect: true
+        redirect: !this.state.redirect
       });
   }
 
@@ -33,11 +33,10 @@ class App extends React.Component {
     console.log(this.state);
   }
 
-// renderRedirect(){
-//   if (this.state.redirect) {
-//       return <Redirect to='/bandInfo' />;
-//   }
-// }
+  componentWillUnmount() {
+      console.log("unmounted");
+   }
+
 
   connectToServer(){
     fetch("/");
@@ -55,18 +54,22 @@ class App extends React.Component {
         <div>
 
       <Switch>
-<Nav />
+        <Nav />
         <div>
-        <Route path="/form"
-          render={(props) => <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>}
-      />
-    {this.state.bandInfo && <Route path="/bandInfo"
-       render={(props) => <BandInfo {...props} band={this.state.bandStuff}/>}
-    />}
-    <Route exact path="/form" render={()=>(
+          <Route path="/form"
+            render={(props) => <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>}
+            />
+          {this.state.bandInfo && <Route path="/bandInfo"
+            render={(props) => <BandInfo {...props} band={this.state.bandStuff}/>}
+            />}
+            <Route exact path="/form" render={()=>(
               this.state.redirect ? <Redirect to="/bandInfo" /> : null
             )} />
-          <Route path="/bandInfo" render={()=>(<BandInfo band={this.state.bandStuff}/>)} />
+          <Route path="/bandInfo" render={(props)=>(<BandInfo {...props} 
+                getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}
+                band={this.state.bandStuff}
+
+                />)} />
 
 </div>
 
