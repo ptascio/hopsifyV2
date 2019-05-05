@@ -4,6 +4,7 @@ import {withRouter} from "react-router-dom";
 import './App.css';
 import TrackForm from './TrackForm';
 import BandInfo from "./BandInfo";
+import Nav from "./Nav";
 
 class App extends React.Component {
   constructor(props){
@@ -45,8 +46,11 @@ class App extends React.Component {
 
     <div className="App">
 
-
+      <Router >
+        <div>
+          <Nav />
       <Switch>
+
         <div>
         <Route path="/form"
           render={(props) => <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>}
@@ -64,6 +68,8 @@ class App extends React.Component {
 
 
       </Switch>
+    </div>
+    </Router>
     </div>
   );
 }
