@@ -13,14 +13,15 @@ class BandInfo extends React.Component {
     console.log(this.props.history);
     this.setState({
       bandString: this.props.band
-    });
+    }, this.props.getBandInfo(""));
+
   }
 
   render(){
     return(
       <article>
         <h2>Band Info</h2>
-        <p>{this.props.band}</p>
+        <p>{this.state.bandString}</p>
       </article>
     );
   }
