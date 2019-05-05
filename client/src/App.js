@@ -1,10 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Switch, Router, Redirect, Route, Link } from "react-router-dom";
+import { BrowserRouter as Switch, Redirect, Route } from "react-router-dom";
+import { Router } from "react-router-dom";
 import {withRouter} from "react-router-dom";
+import { createBrowserHistory } from "history";
+
+
 import './App.css';
+import Nav from "./Nav";
 import TrackForm from './TrackForm';
 import BandInfo from "./BandInfo";
-import Nav from "./Nav";
+const history = createBrowserHistory();
 
 class App extends React.Component {
   constructor(props){
@@ -46,11 +51,11 @@ class App extends React.Component {
 
     <div className="App">
 
-      <Router >
+      <Router history={history}>
         <div>
-          <Nav />
-      <Switch>
 
+      <Switch>
+<Nav />
         <div>
         <Route path="/form"
           render={(props) => <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>}
@@ -76,5 +81,5 @@ class App extends React.Component {
 }
 
 
-// export default withRouter(App);
-export default App;
+export default withRouter(App);
+// export default App;
