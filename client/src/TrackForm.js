@@ -36,14 +36,23 @@ class TrackForm extends React.Component {
     }).then((response) => {
       console.log("in response form");
       var band = JSON.stringify(response.data);
+      var redirect = this.parseError(band);
+      alert(redirect);
       this.setState({
         bandInfo: band,
         submitted: true,
         trackName: "",
         artistName: ""
-      }, (stuff) => this.props.getBandInfo(this.state.bandInfo));
+      }, (stuff) => this.props.getBandInfo(this.state.bandInfo, redirect));
     });
+  }
 
+  parseError(response){
+    if(response === "\"Sorry, something went wrong. Did you fill in both fields?\""){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   sendToBandInfo(){

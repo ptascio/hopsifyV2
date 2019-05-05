@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Switch, Redirect, Route } from "react-router-dom";
 import { Router } from "react-router-dom";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 
@@ -21,10 +21,10 @@ class App extends React.Component {
     this.connectToServer = this.connectToServer.bind(this);
   }
 
-  getBandInfo(stateValueFromForm) {
+  getBandInfo(stateValueFromForm, redirectResp) {
       this.setState({
         bandStuff: stateValueFromForm,
-        redirect: !this.state.redirect
+        redirect: redirectResp
       });
   }
 
@@ -57,14 +57,14 @@ class App extends React.Component {
 
               <Route exact path="/form" render={(props)=>(
                 (this.state.redirect && this.state.bandStuff) ? <Redirect to="/bandInfo" /> :
-                <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>
+                <TrackForm {...props} getBandInfo={(stateValueFromForm, redirect) => this.getBandInfo(stateValueFromForm, redirect)}/>
               )}
               />
 
             <Route exact path="/bandInfo" render={(props)=>(
 
                 <BandInfo {...props}
-                getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}
+                getBandInfo={(stateValueFromForm, redirect) => this.getBandInfo(stateValueFromForm, redirect)}
                 band={this.state.bandStuff}/>
                 )}
               />
