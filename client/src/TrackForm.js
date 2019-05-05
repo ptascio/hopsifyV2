@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Route } from "react-router-dom";
+// import { BrowserRouter as Route } from "react-router-dom";
 
-import BandInfo from "./BandInfo";
+// import BandInfo from "./BandInfo";
 const axios = require("axios");
 
 

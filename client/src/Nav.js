@@ -7,7 +7,7 @@ class Nav extends React.Component {
     super(props);
     this.state = {};
   }
-  rebder(){
+  render(){
     return(
       <nav>
         <ul>
