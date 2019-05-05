@@ -30,7 +30,7 @@ class App extends React.Component {
 
   componentDidUpdate(prevProps, nextProps) {
     console.log("nextProps: ");
-    console.log(this.state);
+    console.log(this.state.bandStuff);
   }
 
   componentWillUnmount() {
@@ -49,35 +49,30 @@ class App extends React.Component {
     return (
 
     <div className="App">
-
       <Router history={history}>
         <div>
+          <Switch>
+            <Nav />
+            <div>
 
-      <Switch>
-        <Nav />
-        <div>
-          <Route path="/form"
-            render={(props) => <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>}
-            />
-          {this.state.bandInfo && <Route path="/bandInfo"
-            render={(props) => <BandInfo {...props} band={this.state.bandStuff}/>}
-            />}
-            <Route exact path="/form" render={()=>(
-              this.state.redirect ? <Redirect to="/bandInfo" /> : null
-            )} />
-          <Route path="/bandInfo" render={(props)=>(<BandInfo {...props} 
+              <Route exact path="/form" render={(props)=>(
+                (this.state.redirect && this.state.bandStuff) ? <Redirect to="/bandInfo" /> :
+                <TrackForm {...props} getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}/>
+              )}
+              />
+
+            <Route exact path="/bandInfo" render={(props)=>(
+
+                <BandInfo {...props}
                 getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}
-                band={this.state.bandStuff}
+                band={this.state.bandStuff}/>
+                )}
+              />
 
-                />)} />
-
-</div>
-
-
-
-      </Switch>
-    </div>
-    </Router>
+            </div>
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }
