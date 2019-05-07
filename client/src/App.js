@@ -54,7 +54,8 @@ class App extends React.Component {
           <Switch>
             <Nav />
             <div>
-
+              <p>
+              {!this.state.redirect && this.state.bandStuff}</p>
               <Route exact path="/form" render={(props)=>(
                 (this.state.redirect && this.state.bandStuff) ? <Redirect to="/bandInfo" /> :
                 <TrackForm {...props} getBandInfo={(stateValueFromForm, redirect) => this.getBandInfo(stateValueFromForm, redirect)}/>
