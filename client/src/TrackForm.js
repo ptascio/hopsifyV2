@@ -37,7 +37,6 @@ class TrackForm extends React.Component {
       console.log("in response form");
       var band = JSON.stringify(response.data);
       var redirect = this.parseError(band);
-      alert(redirect);
       this.setState({
         bandInfo: band,
         submitted: true,
