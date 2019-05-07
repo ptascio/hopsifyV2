@@ -31,8 +31,11 @@ module.exports = (app) => {
             musicObject.albumImg = response.items[0].album.images[1].url;
             axios.fetchTrackById(spotifyToken, "audio-features", trackId)
             .then((features) => {
+              console.log(features);
               musicObject.loudness = features.loudness;
               musicObject.tempo = features.tempo;
+              musicObject.energy = features.energy;
+              musicObject.danceability = features.danceability;
               res.json(musicObject);
             });
         });
