@@ -1,7 +1,10 @@
 const axios = require("./axiosFunctions");
 var spotifyToken;
 var db = require("../models");
-
+var trackId;
+var artistId;
+var previewUrl;
+var musicObject = {};
 
 module.exports = (app) => {
   axios.fetchToken().then((token) => {
@@ -19,17 +22,19 @@ module.exports = (app) => {
       // }).then(() => {
         axios.fetchTrackByName(artist, track, spotifyToken)
         .then((response) => {
-          var id = response.items[0].id;
-          axios.fetchTrackById(spotifyToken, "tracks", id)
-          .then((trackInfo) => {
-            res.send(trackInfo);
-          });
+          trackId = response.items[0].id;
+        axios.fetchTrackById(spotifyToken, "tracks", trackId)
+        .then((trackInfo) => {
+            musicObject.artistId = response.items[0].artists[0].id;
+            musicObject.previewUrl = response.items[0].preview_url;
+            musicObject.albumImg = response.items[0].images[1].url;
+            res.send(musicObject);
+        });
         }).catch((error) => {
           console.log("there was an error here: " + error);
         });
       // });
     }else{
-      console.log("request failed");
       res.send("Sorry, something went wrong. Did you fill in both fields?");
     }
   });

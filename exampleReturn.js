@@ -5,8 +5,8 @@
       "album": {
         "album_type": "album",
         "artists": [
-          {
-            "external_urls": {
+            {
+              "external_urls": {
               "spotify": "https://open.spotify.com/artist/2ye2Wgw4gimLv2eAKyk1NB"
             },
             "href": "https://api.spotify.com/v1/artists/2ye2Wgw4gimLv2eAKyk1NB",
