@@ -46,6 +46,16 @@ class TrackForm extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+      console.log("track form unmounted");
+      this.setState({
+        band: "",
+        submitted: false,
+        trackName: "",
+        artistName: ""
+      });
+   }
+
   parseError(response){
     if(response === "\"Sorry, something went wrong. Did you fill in both fields?\""){
       return false;

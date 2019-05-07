@@ -7,7 +7,9 @@ class BandInfo extends React.Component {
     this.state = {
       songTitle: "",
       previewUrl: "",
-      albumImg: ""
+      albumImg: "",
+      loudness: "",
+      tempo: ""
     };
   }
 
@@ -16,7 +18,9 @@ class BandInfo extends React.Component {
     this.setState({
       songTitle: this.props.band.songTitle,
       previewUrl: this.props.band.previewUrl,
-      albumImg: this.props.band.albumImg
+      albumImg: this.props.band.albumImg,
+      loudness: this.props.band.loudness,
+      tempo: this.props.band.tempo,
     }, this.props.getBandInfo("", false));
 
   }
@@ -28,6 +32,8 @@ class BandInfo extends React.Component {
         <h3>{this.state.songTitle}</h3>
         <p><a href={this.state.previewUrl}>Hear a Clip </a></p>
         <img src={this.state.albumImg}/>
+        <p>Tempo: {this.state.tempo}</p>
+        <p>Loudness: {this.state.loudness}</p>
       </article>
     );
   }
