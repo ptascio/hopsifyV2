@@ -5,14 +5,18 @@ class BandInfo extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      bandString: ""
+      songTitle: "",
+      previewUrl: "",
+      albumImg: ""
     };
   }
 
   componentDidMount(){
-    console.log(this.props.history);
+    console.log("in bandInfo");
     this.setState({
-      bandString: this.props.band
+      songTitle: this.props.band.songTitle,
+      previewUrl: this.props.band.previewUrl,
+      albumImg: this.props.band.albumImg
     }, this.props.getBandInfo("", false));
 
   }
@@ -20,8 +24,10 @@ class BandInfo extends React.Component {
   render(){
     return(
       <article>
-        <h2>Band Info</h2>
-        <p>{this.state.bandString}</p>
+        <h2>Song Info</h2>
+        <h3>{this.state.songTitle}</h3>
+        <p><a href={this.state.previewUrl}>Hear a Clip </a></p>
+        <img src={this.state.albumImg}/>
       </article>
     );
   }
