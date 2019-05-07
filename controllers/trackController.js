@@ -29,8 +29,14 @@ module.exports = (app) => {
             musicObject.songTitle = response.items[0].name;
             musicObject.previewUrl = response.items[0].preview_url;
             musicObject.albumImg = response.items[0].album.images[1].url;
-            res.json(musicObject);
+            axios.fetchTrackById(spotifyToken, "audio-features", trackId)
+            .then((features) => {
+              musicObject.loudness = features.loudness;
+              musicObject.tempo = features.tempo;
+              res.json(musicObject);
+            });
         });
+
         }).catch((error) => {
           console.log("there was an error here: " + error);
         });
