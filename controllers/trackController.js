@@ -26,9 +26,10 @@ module.exports = (app) => {
         axios.fetchTrackById(spotifyToken, "tracks", trackId)
         .then((trackInfo) => {
             musicObject.artistId = response.items[0].artists[0].id;
+            musicObject.songTitle = response.items[0].name;
             musicObject.previewUrl = response.items[0].preview_url;
-            musicObject.albumImg = response.items[0].images[1].url;
-            res.send(musicObject);
+            musicObject.albumImg = response.items[0].album.images[1].url;
+            res.json(musicObject);
         });
         }).catch((error) => {
           console.log("there was an error here: " + error);
