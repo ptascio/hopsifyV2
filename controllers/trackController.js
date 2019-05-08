@@ -27,8 +27,15 @@ module.exports = (app) => {
           musicObject.songTitle = response.items[0].name;
           musicObject.previewUrl = response.items[0].preview_url;
           musicObject.albumImg = response.items[0].album.images[1].url;
-          checkDB(trackId).then(() => {
-            res.json(musicObject);
+          checkDB(trackId).then((result) => {
+            // res.json(musicObject);
+            if(!result){
+              onWard().then(()=> {
+                res.json(musicObject);
+              });
+            }else{
+              res.json(musicObject);
+            }
           });
 
             // axios.fetchTrackById(spotifyToken, "audio-features", trackId)
@@ -55,21 +62,25 @@ function checkDB(id){
   return db.TrackInfo.findOne({
     where: {track_id: id}
   }).then((trackInfo) => {
+
     if(!trackInfo){
       console.log("nulllll");
-      onWard();
+      return false;
     }else{
       console.log("already here");
       musicObject.loudness = trackInfo.dataValues.loudness;
       musicObject.tempo = trackInfo.dataValues.tempo;
       musicObject.energy = trackInfo.dataValues.energy;
       musicObject.danceability = trackInfo.dataValues.danceability;
+      return true;
     }
+  }).catch((err) => {
+    console.log("did not find it:"+err);
   });
 }
 
 function onWard(){
-  axios.fetchTrackById(spotifyToken, "audio-features", trackId)
+  return axios.fetchTrackById(spotifyToken, "audio-features", trackId)
     .then((features) => {
       musicObject.loudness = features.loudness;
       musicObject.tempo = features.tempo;
@@ -82,7 +93,9 @@ function onWard(){
         energy: features.energy,
         danceability: features.danceability
       }).then((trackInfo) => {
-        console.log("created");
+        console.log(trackInfo);
+      }).catch((err) => {
+        console.log("sequelize error");
       });
     }).catch((error) => {
       console.log("there was an error here: " + error);
