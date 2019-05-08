@@ -13,6 +13,7 @@ module.exports = (app) => {
 
   app.get("/api/track", (req, res) => {
     console.log("in get request");
+
     var artist = req.query.artistName;
     var track = req.query.trackName;
     if(spotifyToken && artist && track){
@@ -30,7 +31,7 @@ module.exports = (app) => {
           checkDB(trackId).then((result) => {
             // res.json(musicObject);
             if(!result){
-              onWard().then(()=> {
+              makeFeaturesCall().then(()=> {
                 res.json(musicObject);
               });
             }else{
@@ -64,10 +65,8 @@ function checkDB(id){
   }).then((trackInfo) => {
 
     if(!trackInfo){
-      console.log("nulllll");
       return false;
     }else{
-      console.log("already here");
       musicObject.loudness = trackInfo.dataValues.loudness;
       musicObject.tempo = trackInfo.dataValues.tempo;
       musicObject.energy = trackInfo.dataValues.energy;
@@ -79,7 +78,7 @@ function checkDB(id){
   });
 }
 
-function onWard(){
+function makeFeaturesCall(){
   return axios.fetchTrackById(spotifyToken, "audio-features", trackId)
     .then((features) => {
       musicObject.loudness = features.loudness;
