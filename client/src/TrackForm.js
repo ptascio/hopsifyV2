@@ -12,7 +12,8 @@ class TrackForm extends React.Component {
       trackName: '',
       artistName: '',
       bandInfo: "",
-      submitted: false
+      submitted: false,
+      formError: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,24 +27,30 @@ class TrackForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    axios({
-      url: "/api/track",
-      method: "get",
-      params: {
-        artistName: this.state.artistName,
-        trackName: this.state.trackName
-      }
-    }).then((response) => {
-      console.log("in response form");
-      var band = response.data;
-      var redirect = this.parseError(band);
+    if(this.state.artistName && this.state.trackName){
+      axios({
+        url: "/api/track",
+        method: "get",
+        params: {
+          artistName: this.state.artistName,
+          trackName: this.state.trackName
+        }
+      }).then((response) => {
+        console.log("in response form");
+        var band = response.data;
+        var redirect = this.parseError(band);
+        this.setState({
+          bandInfo: band,
+          submitted: true,
+          trackName: "",
+          artistName: ""
+        }, (stuff) => this.props.getBandInfo(this.state.bandInfo, redirect));
+      });
+    }else{
       this.setState({
-        bandInfo: band,
-        submitted: true,
-        trackName: "",
-        artistName: ""
-      }, (stuff) => this.props.getBandInfo(this.state.bandInfo, redirect));
-    });
+        formError: "Please make sure to fill in both fields."
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -57,7 +64,7 @@ class TrackForm extends React.Component {
    }
 
   parseError(response){
-    if(response === "\"Sorry, something went wrong. Did you fill in both fields?\""){
+    if(response === "Sorry, something went wrong. Did you fill in both fields?"){
       return false;
     }else{
       return true;
@@ -71,7 +78,7 @@ class TrackForm extends React.Component {
   render(){
     return(
       <div>
-        {this.state.submitted}
+        <p>{this.state.formError}</p>
       <form onSubmit={this.handleSubmit}>
         <label>Artist Name:
           <input name="artistName" type="text" value={this.state.artistName} onChange={this.handleChange}/>
