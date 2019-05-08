@@ -12,7 +12,11 @@ class Nav extends React.Component {
       <nav>
         <ul>
           <li>
-            <Link to="/form">Form</Link>
+            <Link to="/">HOME</Link>
+          </li>
+          <li>
+
+            <Link to="/form">FORM</Link>
           </li>
         </ul>
       </nav>
