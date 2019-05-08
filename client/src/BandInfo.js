@@ -30,11 +30,17 @@ class BandInfo extends React.Component {
   }
 
   render(){
+    var clip;
+    if (this.state.previewUrl){
+      clip = <p><a href={this.state.previewUrl}>Hear a Clip </a></p>;
+    }else{
+      clip = <span></span>;
+    }
     return(
       <article>
         <h2>Song Info</h2>
         <h3>{this.state.songTitle}</h3>
-        <p><a href={this.state.previewUrl}>Hear a Clip </a></p>
+        {clip}
         <img src={this.state.albumImg} alt={'album cover for' + this.state.songTitle}/>
         <p>Tempo: {this.state.tempo}</p>
         <p>Loudness: {this.state.loudness}</p>
