@@ -59,13 +59,13 @@ const axiosReq =  {
 
   fetchArtistOrTrackInfo: (type, name, spotifyToken) => {
     return axios({
-      url: `https://api.spotify.com/v1/search`,
+      url: `https://api.spotify.com/v1/search?q=${name}&type=${type}&limit=5`,
       method: "get",
       headers: {
         "Authorization": `Bearer ${spotifyToken}`,
       }
     }).then((response) => {
-
+      console.log(response.data.tracks.items);
     })
     .catch((error) => {
       console.log(error);

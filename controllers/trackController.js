@@ -54,9 +54,17 @@ module.exports = (app) => {
         });
       // });
     }else if(spotifyToken && track){
-      axios.fetchArtistOrTrackInfo("track", track, spotifyToken);
-    }else if(spotifyToken && name){
-      axios.fetchArtistOrTrackInfo("artist", name, spotifyToken);
+      axios.fetchArtistOrTrackInfo("track", track, spotifyToken).then((response) => {
+        console.log(response.data.tracks.items);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }else if(spotifyToken && artist){
+      axios.fetchArtistOrTrackInfo("artist", artist, spotifyToken).then((response) => {
+        console.log(response.data.artists.items);
+      }).catch((error) => {
+        console.log("error");
+      });
     }
     else{
       res.send("Sorry, something went wrong. Did you fill in both fields?");
