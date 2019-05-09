@@ -21,7 +21,7 @@ module.exports = (app) => {
       //   track_name: req.query.trackName,
       //   artist_name: req.query.artistName
       // }).then(() => {
-        axios.fetchTrackByName(artist, track, spotifyToken)
+        axios.fetchTrackByNameAndArtist(artist, track, spotifyToken)
         .then((response) => {
           trackId = response.items[0].id;
           musicObject.artistId = response.items[0].artists[0].id;
