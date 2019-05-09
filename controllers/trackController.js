@@ -53,7 +53,12 @@ module.exports = (app) => {
           console.log("there was an error here: " + error);
         });
       // });
-    }else{
+    }else if(spotifyToken && track){
+      axios.fetchArtistOrTrackInfo("track", track, spotifyToken);
+    }else if(spotifyToken && name){
+      axios.fetchArtistOrTrackInfo("artist", name, spotifyToken);
+    }
+    else{
       res.send("Sorry, something went wrong. Did you fill in both fields?");
     }
   });
