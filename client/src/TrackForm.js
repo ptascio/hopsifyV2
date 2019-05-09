@@ -27,7 +27,7 @@ class TrackForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    if(this.state.artistName && this.state.trackName){
+    // if(this.state.artistName && this.state.trackName){
       axios({
         url: "/api/track",
         method: "get",
@@ -46,11 +46,11 @@ class TrackForm extends React.Component {
           artistName: ""
         }, (stuff) => this.props.getBandInfo(this.state.bandInfo, redirect));
       });
-    }else{
-      this.setState({
-        formError: "Please make sure to fill in both fields."
-      });
-    }
+    // }else{
+    //   this.setState({
+    //     formError: "Please make sure to fill in both fields."
+    //   });
+    // }
   }
 
   componentWillUnmount() {
