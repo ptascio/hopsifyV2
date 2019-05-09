@@ -55,6 +55,21 @@ const axiosReq =  {
     .catch((error) => {
       console.log("axios error: " + error);
     });
+  },
+
+  fetchArtistOrTrackInfo: (type, name, spotifyToken) => {
+    return axios({
+      url: `https://api.spotify.com/v1/search`,
+      method: "get",
+      headers: {
+        "Authorization": `Bearer ${spotifyToken}`,
+      }
+    }).then((response) => {
+
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
 };
