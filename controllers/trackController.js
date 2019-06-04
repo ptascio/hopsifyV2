@@ -1,4 +1,5 @@
-const axios = require("./axiosFunctions");
+const axios = require("../utils/axiosFunctions");
+
 var spotifyToken;
 var db = require("../models");
 var trackId;
