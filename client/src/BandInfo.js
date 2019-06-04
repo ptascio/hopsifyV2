@@ -5,27 +5,19 @@ class BandInfo extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      songTitle: "",
-      previewUrl: "",
-      albumImg: "",
-      loudness: "",
-      tempo: "",
-      danceability: "",
-      energy: ""
+      songTitle: props.band.songTitle,
+      previewUrl: props.band.previewUrl,
+      albumImg: props.band.albumImg,
+      loudness: props.band.loudness,
+      tempo: props.band.tempo,
+      danceability: props.band.danceability,
+      energy: props.band.energy
     };
   }
 
   componentDidMount(){
     console.log("in bandInfo");
-    this.setState({
-      songTitle: this.props.band.songTitle,
-      previewUrl: this.props.band.previewUrl,
-      albumImg: this.props.band.albumImg,
-      loudness: this.props.band.loudness,
-      tempo: this.props.band.tempo,
-      danceability: this.props.band.danceability,
-      energy: this.props.band.energy
-    }, this.props.getBandInfo("", false));
+    this.props.getBandInfo("", false);
 
   }
 
