@@ -1,6 +1,8 @@
 const axios = require("axios");
 const path = require("path");
-const dotenv = require('dotenv').config({ path: '/Users/ptascio/Documents/MyTrilogyHWs/hopsifyV2/.env' });
+// const dotenv = require('dotenv').config({ path: '/Users/ptascio/Documents/MyTrilogyHWs/hopsifyV2/.env' });
+const dotenv = require('dotenv').config({path: "../.env"});
+
 const axiosReq =  {
     fetchToken: () => {
       return axios({

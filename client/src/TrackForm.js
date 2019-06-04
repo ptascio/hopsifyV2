@@ -1,6 +1,6 @@
 import React from 'react';
 // import { BrowserRouter as Route } from "react-router-dom";
-
+import { withRouter } from "react-router-dom";
 // import BandInfo from "./BandInfo";
 const axios = require("axios");
 
@@ -94,4 +94,4 @@ class TrackForm extends React.Component {
 }
 
 // export default withRouter(observer(MyComponent))
-export default TrackForm;
+export default withRouter(TrackForm);
