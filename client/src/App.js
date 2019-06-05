@@ -48,16 +48,16 @@ class App extends React.Component {
     return (
 <Router>
     <div className="App">
-          <Switch>
+
             <Nav />
             <div>
-              <p>
-              {!this.state.redirect && this.state.bandStuff}</p>
-              <Route exact path="/form" render={(props)=>(
+
+            {/*  <Route path="/form" render={(props)=>(
                 (this.state.redirect && this.state.bandStuff) ? <Redirect to="/bandInfo" /> :
                 <TrackForm {...props} getBandInfo={(stateValueFromForm, redirect) => this.getBandInfo(stateValueFromForm, redirect)}/>
               )}
-              />
+              />*/}
+              <Route path="/form" component={TrackForm}/>
 
             <Route exact path="/bandInfo" render={(props)=>(
 
@@ -68,7 +68,7 @@ class App extends React.Component {
               />
 
             </div>
-          </Switch>
+          
     </div>
     </Router>
   );

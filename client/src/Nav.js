@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 class Nav extends React.Component {
   constructor(props){
     super(props);
     this.state = {};
+  }
+
+  componentDidMount(){
+    console.log(this.props);
   }
   render(){
     return(
