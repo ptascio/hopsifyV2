@@ -72,7 +72,7 @@ class TrackForm extends React.Component {
   }
 
   sendToBandInfo(){
-    this.props.history.push("/bandInfo");
+    // this.props.history.push("/bandInfo");
   }
 
   render(){

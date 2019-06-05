@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Switch, Redirect, Route } from "react-router-dom";
-import { Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Redirect, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
@@ -47,10 +46,8 @@ class App extends React.Component {
   }
   render(){
     return (
-
+<Router>
     <div className="App">
-      <Router history={history}>
-        <div>
           <Switch>
             <Nav />
             <div>
@@ -72,13 +69,12 @@ class App extends React.Component {
 
             </div>
           </Switch>
-        </div>
-      </Router>
     </div>
+    </Router>
   );
 }
 }
 
 
-export default withRouter(App);
+export default App;
 // export default App;
