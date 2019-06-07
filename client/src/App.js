@@ -1,41 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Redirect, Route } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
-
-
 import './App.css';
 import Nav from "./Nav";
-import TrackForm from './TrackForm';
-import BandInfo from "./BandInfo";
+import FormAndInfo from "./FormAndInfo";
 const history = createBrowserHistory();
 
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      bandStuff: "",
-      redirect: false
-    };
     this.connectToServer = this.connectToServer.bind(this);
   }
-
-  getBandInfo(stateValueFromForm, redirectResp) {
-      this.setState({
-        bandStuff: stateValueFromForm,
-        redirect: redirectResp
-      });
-  }
-
-  componentDidUpdate(prevProps, nextProps) {
-    console.log("nextProps: ");
-    console.log(this.state.bandStuff);
-  }
-
-  componentWillUnmount() {
-      console.log("unmounted");
-   }
-
 
   connectToServer(){
     fetch("/");
@@ -44,32 +19,14 @@ class App extends React.Component {
   componentDidMount(){
     this.connectToServer();
   }
+
   render(){
     return (
-<Router>
+<Router history={history}>
     <div className="App">
-
-            <Nav />
-            <div>
-
-            {/*  <Route path="/form" render={(props)=>(
-                (this.state.redirect && this.state.bandStuff) ? <Redirect to="/bandInfo" /> :
-                <TrackForm {...props} getBandInfo={(stateValueFromForm, redirect) => this.getBandInfo(stateValueFromForm, redirect)}/>
-              )}
-              />*/}
-              <Route path="/form" component={TrackForm}/>
-
-            <Route exact path="/bandInfo" render={(props)=>(
-
-                <BandInfo {...props}
-                getBandInfo={(stateValueFromForm, redirect) => this.getBandInfo(stateValueFromForm, redirect)}
-                band={this.state.bandStuff}/>
-                )}
-              />
-
-            </div>
-          
-    </div>
+            <Route exact path="/" component={Nav} />
+            <Route path="/music" component={FormAndInfo} />
+      </div>
     </Router>
   );
 }
