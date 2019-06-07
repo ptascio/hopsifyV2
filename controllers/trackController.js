@@ -24,6 +24,8 @@ module.exports = (app) => {
       // }).then(() => {
         axios.fetchTrackByNameAndArtist(artist, track, spotifyToken)
         .then((response) => {
+          console.log(response);
+          if(response.items.length > 0){
           trackId = response.items[0].id;
           musicObject.artistId = response.items[0].artists[0].id;
           musicObject.songTitle = response.items[0].name;
@@ -39,6 +41,9 @@ module.exports = (app) => {
               res.json(musicObject);
             }
           });
+        }else{
+          res.send("Sorry, something went wrong.");
+        }
 
             // axios.fetchTrackById(spotifyToken, "audio-features", trackId)
             //   .then((features) => {
@@ -68,7 +73,7 @@ module.exports = (app) => {
       });
     }
     else{
-      res.send("Sorry, something went wrong. Did you fill in both fields?");
+      res.send("Sorry, something went wrong.");
     }
   });
 };
