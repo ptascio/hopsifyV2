@@ -44,7 +44,7 @@ class TrackForm extends React.Component {
           submitted: true,
           trackName: "",
           artistName: ""
-        }, (stuff) => this.props.getBandInfo(this.state.bandInfo, redirect));
+        }, (stuff) => this.props.getBandInfo(this.state.bandInfo));
       });
     // }else{
     //   this.setState({
@@ -76,8 +76,10 @@ class TrackForm extends React.Component {
   }
 
   render(){
-    return(
-      <div>
+    console.log(this.props.history.location.pathname);
+    var displayForm;
+    if(this.props.history.location.pathname === "/form"){
+      displayForm = <div>
         <p>{this.state.formError}</p>
       <form onSubmit={this.handleSubmit}>
         <label>Artist Name:
@@ -88,10 +90,18 @@ class TrackForm extends React.Component {
         </label><br />
           <input type="submit" value="Submit"/>
       </form>
-    </div>
+    </div>;
+  }else{
+    displayForm = null;
+  }
+    return(
+      <article>
+      {displayForm}
+    </article>
+
     );
   }
 }
 
 // export default withRouter(observer(MyComponent))
-export default TrackForm;
+export default withRouter(TrackForm);

@@ -5,21 +5,32 @@ class BandInfo extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      songTitle: props.band.songTitle,
-      previewUrl: props.band.previewUrl,
-      albumImg: props.band.albumImg,
-      loudness: props.band.loudness,
-      tempo: props.band.tempo,
-      danceability: props.band.danceability,
-      energy: props.band.energy
+      songTitle: "",
+      previewUrl: "",
+      albumImg: "",
+      loudness: "5",
+      tempo: "",
+      danceability: "",
+      energy: ""
     };
   }
 
-  componentDidMount(){
+  componentDidUpdate(prevProps, nextProps){
     console.log("in bandInfo");
-    this.props.getBandInfo("", false);
-
+    console.log("bandInfo:" + this.props.band);
+    if(prevProps.band !== this.props.band){
+      this.setState({
+        songTitle: this.props.band.songTitle,
+        previewUrl: this.props.band.previewUrl,
+        albumImg: this.props.band.albumImg,
+        loudness: this.props.band.loudness,
+        tempo: this.props.band.tempo,
+        danceability: this.props.band.danceability,
+        energy: this.props.band.energy
+      });
   }
+  }
+
 
   render(){
     var clip;
@@ -28,8 +39,9 @@ class BandInfo extends React.Component {
     }else{
       clip = <span></span>;
     }
-    return(
-      <article>
+    var displayInfo;
+    if(this.props.history.location.pathname === "/bandInfo"){
+      displayInfo = <div>
         <h2>Song Info</h2>
         <h3>{this.state.songTitle}</h3>
         {clip}
@@ -38,6 +50,15 @@ class BandInfo extends React.Component {
         <p>Loudness: {this.state.loudness}</p>
         <p>Danceability: {this.state.danceability}</p>
         <p>Energy: {this.state.energy}</p>
+      </div>;
+    }else{
+      displayInfo = null;
+    }
+
+    console.log();
+    return(
+      <article>
+        {displayInfo}
       </article>
     );
   }
