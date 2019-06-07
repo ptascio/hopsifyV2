@@ -1,5 +1,4 @@
 import React from 'react';
-// import { BrowserRouter as Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 // import BandInfo from "./BandInfo";
 const axios = require("axios");
@@ -13,12 +12,11 @@ class TrackForm extends React.Component {
       artistName: '',
       bandInfo: "",
       submitted: false,
-      formError: ""
+      formError: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.sendToBandInfo = this.sendToBandInfo.bind(this);
   }
 
   handleChange(e){
@@ -27,7 +25,7 @@ class TrackForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    // if(this.state.artistName && this.state.trackName){
+    if(this.state.artistName || this.state.trackName){
       axios({
         url: "/api/track",
         method: "get",
@@ -38,19 +36,15 @@ class TrackForm extends React.Component {
       }).then((response) => {
         console.log("in response form");
         var band = response.data;
-        var redirect = this.parseError(band);
+        this.parseError(band);
         this.setState({
           bandInfo: band,
           submitted: true,
           trackName: "",
           artistName: ""
-        }, (stuff) => this.props.getBandInfo(this.state.bandInfo));
+        }, () => this.props.getBandInfo(this.state.bandInfo));
       });
-    // }else{
-    //   this.setState({
-    //     formError: "Please make sure to fill in both fields."
-    //   });
-    // }
+    }
   }
 
   componentWillUnmount() {
@@ -64,21 +58,16 @@ class TrackForm extends React.Component {
    }
 
   parseError(response){
-    if(response === "Sorry, something went wrong. Did you fill in both fields?"){
-      return false;
+    if(response === "Sorry, something went wrong."){
+      alert("Oops.");
     }else{
       return true;
     }
   }
 
-  sendToBandInfo(){
-    // this.props.history.push("/bandInfo");
-  }
-
   render(){
-    console.log(this.props.history.location.pathname);
     var displayForm;
-    if(this.props.history.location.pathname === "/form"){
+
       displayForm = <div>
         <p>{this.state.formError}</p>
       <form onSubmit={this.handleSubmit}>
@@ -91,9 +80,7 @@ class TrackForm extends React.Component {
           <input type="submit" value="Submit"/>
       </form>
     </div>;
-  }else{
-    displayForm = null;
-  }
+
     return(
       <article>
       {displayForm}

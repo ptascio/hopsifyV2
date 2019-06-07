@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 class Nav extends React.Component {
@@ -9,18 +9,17 @@ class Nav extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.props);
+    console.log(this.props.history);
   }
   render(){
     return(
       <nav>
         <ul>
           <li>
-            <Link to="/">HOME</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
-
-            <Link to="/form">FORM</Link>
+            <Link to="/music">Get Started</Link>
           </li>
         </ul>
       </nav>

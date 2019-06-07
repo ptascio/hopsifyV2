@@ -1,7 +1,7 @@
 import React from "react";
 import TrackForm from "./TrackForm";
 import BandInfo from "./BandInfo";
-import { BrowserRouter as Route } from "react-router-dom";
+
 import { withRouter } from "react-router-dom";
 
 class FormAndInfo extends React.Component {
@@ -14,7 +14,7 @@ class FormAndInfo extends React.Component {
 
   getBandInfo(stateValueFromForm) {
       this.setState({
-        bandStuff: stateValueFromForm,
+        bandInfo: stateValueFromForm,
       });
   }
 
@@ -23,7 +23,7 @@ class FormAndInfo extends React.Component {
 
     return(
       <article>
-        {this.state.bandInfo ?
+        {this.state.bandInfo.trackName ?
           <BandInfo band={this.state.bandInfo}
             getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}
           /> :
@@ -37,16 +37,3 @@ class FormAndInfo extends React.Component {
 }
 
 export default withRouter(FormAndInfo);
-
-
-{/*<Route path="/bandInfo" render={(props)=>(
-    <BandInfo {...props}
-    getBandInfo={(stateValueFromForm, redirect) => this.getBandInfo(stateValueFromForm, redirect)}
-    band={this.state.bandStuff}/>
-    )}
-  />
-
- <Route path="/form" render={(props)=>(
-     <TrackForm {...props} getBandInfo={(stateValueFromForm, redirect) => this.getBandInfo(stateValueFromForm, redirect)}/>
-   )}
-   />*/}

@@ -28,7 +28,7 @@ class BandInfo extends React.Component {
       <article>
         <div>
           <h2>Song Info</h2>
-          <h3>{this.props.songTitle}</h3>
+          <h3>{this.state.songTitle}</h3>
           {clip}
           <button onClick={() => this.state.resetForm("")}>New Search</button>
           <img src={this.state.albumImg} alt={'album cover for' + this.state.songTitle}/>
