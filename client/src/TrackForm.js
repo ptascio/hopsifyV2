@@ -44,6 +44,10 @@ class TrackForm extends React.Component {
           artistName: ""
         }, () => this.props.getBandInfo(this.state.bandInfo));
       });
+    }else{
+      this.setState({
+        formError: "Please fill out at least one field."
+      });
     }
   }
 
@@ -59,7 +63,9 @@ class TrackForm extends React.Component {
 
   parseError(response){
     if(response === "Sorry, something went wrong."){
-      alert("Oops.");
+      this.setState({
+        formError: `Sorry, something went wrong. Looks like we can't find match. You entered ${this.state.artistName} and ${this.state.trackName}.`
+      });
     }else{
       return true;
     }
