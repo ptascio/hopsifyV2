@@ -13,17 +13,18 @@ class FormAndInfo extends React.Component {
   }
 
   getBandInfo(stateValueFromForm) {
+    console.log("form: " + stateValueFromForm);
       this.setState({
-        bandInfo: stateValueFromForm,
+        bandInfo: stateValueFromForm
       });
   }
 
 
   render(){
-
+    console.log(this.state);
     return(
       <article>
-        {this.state.bandInfo.trackName ?
+        {this.state.bandInfo.songTitle ?
           <BandInfo band={this.state.bandInfo}
             getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}
           /> :
