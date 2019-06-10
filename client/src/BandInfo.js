@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 class BandInfo extends React.Component {
   constructor(props){
@@ -12,8 +12,17 @@ class BandInfo extends React.Component {
       tempo: this.props.band.tempo,
       danceability: this.props.band.danceability,
       energy: this.props.band.energy,
-      resetForm: this.props.getBandInfo
+      resetForm: this.props.getBandInfo,
+      pushToBeers: false
     };
+
+  }
+
+  matchBeers() {
+    console.log(this);
+    this.setState({
+      pushToBeers: true
+    });
   }
 
   render(){
@@ -23,12 +32,17 @@ class BandInfo extends React.Component {
     }else{
       clip = <span></span>;
     }
+    var goMatchBeers;
+    if(this.state.pushToBeers) {return<Redirect to={{
+        pathname: "/beer" 
+        }}/>;}
 
     return(
       <article>
         <div>
           <h2>Song Info</h2>
           <h3>{this.state.songTitle}</h3>
+          <button onClick={() => this.matchBeers()}>Match Beers</button>
           {clip}
           <button onClick={() => this.state.resetForm("")}>New Search</button>
           <img src={this.state.albumImg} alt={'album cover for' + this.state.songTitle}/>
