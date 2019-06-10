@@ -34,7 +34,8 @@ class BandInfo extends React.Component {
     }
     var goMatchBeers;
     if(this.state.pushToBeers) {return<Redirect to={{
-        pathname: "/beer" 
+        pathname: "/beer",
+        state: {bandMetric: ""} 
         }}/>;}
 
     return(

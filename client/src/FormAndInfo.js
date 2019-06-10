@@ -8,7 +8,8 @@ class FormAndInfo extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-        bandInfo: ""
+        bandInfo: "",
+        noBeerMatch: ""
       };
   }
 
@@ -19,11 +20,21 @@ class FormAndInfo extends React.Component {
       });
   }
 
+  componentDidMount(){
+    if(this.props.location.state){
+        this.setState({
+          noBeerMatch: this.props.location.state.noMetric
+        });
+    }
+
+  }
+
 
   render(){
     console.log(this.state);
     return(
       <article>
+        <p>{this.state.noBeerMatch}</p>
         {this.state.bandInfo.songTitle ?
           <BandInfo band={this.state.bandInfo}
             getBandInfo={(stateValueFromForm) => this.getBandInfo(stateValueFromForm)}

@@ -12,7 +12,7 @@ class TrackForm extends React.Component {
       artistName: '',
       bandInfo: "",
       submitted: false,
-      formError: "",
+      formError: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
