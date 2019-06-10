@@ -4,6 +4,7 @@ import { createBrowserHistory } from "history";
 import './App.css';
 import Nav from "./Nav";
 import FormAndInfo from "./FormAndInfo";
+import Beer from "./Beer";
 const history = createBrowserHistory();
 
 class App extends React.Component {
@@ -26,6 +27,7 @@ class App extends React.Component {
     <div className="App">
             <Route exact path="/" component={Nav} />
             <Route path="/music" component={FormAndInfo} />
+            <Route path="/beer" component={Beer} />
       </div>
     </Router>
   );
