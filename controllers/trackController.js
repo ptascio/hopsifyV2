@@ -18,10 +18,10 @@ module.exports = (app) => {
     var artist = req.query.artistName;
     var track = req.query.trackName;
     if(spotifyToken && artist && track){
-      // db.TrackSearch.create({
-      //   track_name: req.query.trackName,
-      //   artist_name: req.query.artistName
-      // }).then(() => {
+      db.TrackSearch.create({
+        track_name: req.query.trackName,
+        artist_name: req.query.artistName
+      }).then(() => {
         axios.fetchTrackByNameAndArtist(artist, track, spotifyToken)
         .then((response) => {
           console.log(response);
@@ -58,7 +58,7 @@ module.exports = (app) => {
         }).catch((error) => {
           console.log("there was an error here: " + error);
         });
-      // });
+      });
     }else if(spotifyToken && track){
       axios.fetchArtistOrTrackInfo("track", track, spotifyToken).then((response) => {
         console.log(response.data.tracks.items);
@@ -81,7 +81,8 @@ module.exports = (app) => {
 function checkDB(id){
   return db.TrackInfo.findOne({
     where: {track_id: id}
-  }).then((trackInfo) => {
+  }).then((trackInfo
+  ) => {
 
     if(!trackInfo){
       return false;

@@ -1,13 +1,18 @@
-module.exports = function(sequelize, DataTypes){
-  var TrackSearch = sequelize.define("TrackSearch", {
-    track_name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    artist_name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-  });
-  return TrackSearch;
-};
+var mongoose = require("mongoose");
+
+var Schema = mongoose.Schema;
+
+var trackSearchSchema = new Schema({
+  trackName: {
+    type: String,
+    required: true
+  },
+  artistName: {
+    type: String,
+    required: true
+  }
+});
+
+var TrackSearch = mongoose.model("TrackSearch", trackSearchSchema);
+
+module.exports = TrackSearch;
