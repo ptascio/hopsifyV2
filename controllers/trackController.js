@@ -19,8 +19,8 @@ module.exports = (app) => {
     var track = req.query.trackName;
     if(spotifyToken && artist && track){
       db.TrackSearch.create({
-        track_name: req.query.trackName,
-        artist_name: req.query.artistName
+        trackName: req.query.trackName,
+        artistName: req.query.artistName
       }).then(() => {
         axios.fetchTrackByNameAndArtist(artist, track, spotifyToken)
         .then((response) => {
@@ -31,16 +31,16 @@ module.exports = (app) => {
           musicObject.songTitle = response.items[0].name;
           musicObject.previewUrl = response.items[0].preview_url;
           musicObject.albumImg = response.items[0].album.images[1].url;
-          checkDB(trackId).then((result) => {
-            // res.json(musicObject);
-            if(!result){
-              makeFeaturesCall().then(()=> {
-                res.json(musicObject);
-              });
-            }else{
-              res.json(musicObject);
-            }
-          });
+          // checkDB(trackId).then((result) => {
+          //   // res.json(musicObject);
+          //   if(!result){
+          //     makeFeaturesCall().then(()=> {
+          //       res.json(musicObject);
+          //     });
+          //   }else{
+          //     res.json(musicObject);
+          //   }
+          // });
         }else{
           res.send("Sorry, something went wrong.");
         }
