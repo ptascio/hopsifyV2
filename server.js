@@ -5,8 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 var db = require("./models");
 const app = express();
-
-
+const mongoose = require("mongoose");
 const port = process.env.PORT || 3001;
 
 // const staticFiles = express.static(path.join(__dirname, 'client/public'));
@@ -28,13 +27,12 @@ if(process.env.NODE_ENV === 'production') {
 //   res.sendFile(path.join('index.html'));
 // });
 
-console.log(path.join(__dirname+'/client/public/index.html'));
-
-
 require("./controllers/trackController.js")(app);
 
-db.sequelize.sync().then(function(){
-  app.listen(port, () => {
-    console.log("listening");
-  });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/hopsifyDB";
+
+mongoose.connect(MONGODB_URI);
+
+app.listen(port, () => {
+  console.log("listening");
 });
