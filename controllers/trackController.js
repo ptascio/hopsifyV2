@@ -17,30 +17,31 @@ module.exports = (app) => {
 
     var artist = req.query.artistName;
     var track = req.query.trackName;
+    artist = artist.toLowerCase();
+    track = track.toLowerCase();
     if(spotifyToken && artist && track){
       db.TrackSearch.create({
-        trackName: req.query.trackName,
-        artistName: req.query.artistName
+        trackName: track,
+        artistName: artist
       }).then(() => {
         axios.fetchTrackByNameAndArtist(artist, track, spotifyToken)
         .then((response) => {
-          console.log(response);
           if(response.items.length > 0){
           trackId = response.items[0].id;
           musicObject.artistId = response.items[0].artists[0].id;
           musicObject.songTitle = response.items[0].name;
           musicObject.previewUrl = response.items[0].preview_url;
           musicObject.albumImg = response.items[0].album.images[1].url;
-          // checkDB(trackId).then((result) => {
-          //   // res.json(musicObject);
-          //   if(!result){
-          //     makeFeaturesCall().then(()=> {
-          //       res.json(musicObject);
-          //     });
-          //   }else{
-          //     res.json(musicObject);
-          //   }
-          // });
+          checkDB(trackId).then((result) => {
+            // res.json(musicObject);
+            if(!result){
+              makeFeaturesCall().then(()=> {
+                res.json(musicObject);
+              });
+            }else{
+              res.json(musicObject);
+            }
+          });
         }else{
           res.send("Sorry, something went wrong.");
         }
@@ -80,7 +81,7 @@ module.exports = (app) => {
 
 function checkDB(id){
   return db.TrackInfo.findOne({
-    where: {track_id: id}
+    trackId: id
   }).then((trackInfo
   ) => {
 
@@ -106,7 +107,7 @@ function makeFeaturesCall(){
       musicObject.energy = features.energy;
       musicObject.danceability = features.danceability;
       db.TrackInfo.create({
-        track_id: trackId,
+        trackId: trackId,
         loudness: features.loudness,
         tempo: features.tempo,
         energy: features.energy,
@@ -114,7 +115,7 @@ function makeFeaturesCall(){
       }).then((trackInfo) => {
         console.log(trackInfo);
       }).catch((err) => {
-        console.log("sequelize error");
+        console.log("database error: " + err);
       });
     }).catch((error) => {
       console.log("there was an error here: " + error);
