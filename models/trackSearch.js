@@ -11,7 +11,7 @@ var trackSearchSchema = new Schema({
     type: String,
     required: true
   }
-});
+}, {timestamps: true});
 
 var TrackSearch = mongoose.model("TrackSearch", trackSearchSchema);
 

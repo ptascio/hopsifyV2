@@ -24,7 +24,7 @@ var trackInfoSchema = new Schema({
     type: Number,
     required: true
   }
-});
+}, {timestamps: true});
 
 var TrackInfo = mongoose.model("TrackInfo", trackInfoSchema);
 
