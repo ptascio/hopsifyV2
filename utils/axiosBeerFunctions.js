@@ -5,14 +5,27 @@ const punkBeerUrl = "https://api.punkapi.com/v2/beers/";
 const axiosBeer = {
   fetchRandomBeer: () => {
     return axios({
-      url: punkBeerUrl+"/random",
+      url: punkBeerUrl+"random",
       method: "get"
-    }).then((response) => {
-
+    }).then((res) => {
+      console.log(res);
     }).catch((error) => {
       console.log(error);
     });
+  },
+
+  fetchByABV: (num1) => {
+    return axios({
+      url: punkBeerUrl+`?abv_gt=${num1}`,
+      method: "get"
+    }).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 };
+
+axiosBeer.fetchByABV(5);
 
 module.exports = axiosBeer;
