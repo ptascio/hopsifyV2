@@ -14,9 +14,9 @@ const axiosBeer = {
     });
   },
 
-  fetchByABV: (num1) => {
+  fetchByABV: (num1, num2) => {
     return axios({
-      url: punkBeerUrl+`?abv_gt=${num1}`,
+      url: punkBeerUrl+`?abv_gt=${num1}&abv_lt=${num2}`,
       method: "get"
     }).then((res) => {
       console.log(res);
@@ -26,6 +26,6 @@ const axiosBeer = {
   }
 };
 
-axiosBeer.fetchByABV(5);
+axiosBeer.fetchByABV(11,12);
 
 module.exports = axiosBeer;
