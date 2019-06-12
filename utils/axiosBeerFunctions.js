@@ -16,10 +16,10 @@ const axiosBeer = {
 
   fetchByABV: (num1, num2) => {
     return axios({
-      url: punkBeerUrl+`?abv_gt=${num1}&abv_lt=${num2}`,
+      url: punkBeerUrl+`?abv_gt=${num1}&abv_lt=${num2}&per_page=1`,
       method: "get"
     }).then((res) => {
-      console.log(res);
+      console.log(res.data);
     }).catch((err) => {
       console.log(err);
     });
