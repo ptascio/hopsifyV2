@@ -23,6 +23,10 @@ var trackInfoSchema = new Schema({
   tempo: {
     type: Number,
     required: true
+  },
+  valence: {
+    type: Number,
+    required: true
   }
 }, {timestamps: true});
 
