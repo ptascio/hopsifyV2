@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, withRouter } from "react-router-dom";
-
+import findBeer from "./beerWorker";
 class BandInfo extends React.Component {
   constructor(props){
     super(props);
@@ -25,6 +25,13 @@ class BandInfo extends React.Component {
     });
   }
 
+  componentDidMount(){
+    findBeer(this.state.loudness,
+    this.state.tempo,
+    this.state.energy,
+    this.state.danceability);
+  }
+
   render(){
     var clip;
     if (this.state.previewUrl){
@@ -35,7 +42,7 @@ class BandInfo extends React.Component {
     var goMatchBeers;
     if(this.state.pushToBeers) {return<Redirect to={{
         pathname: "/beer",
-        state: {bandMetric: ""} 
+        state: {bandMetric: ""}
         }}/>;}
 
     return(

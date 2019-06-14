@@ -26,6 +26,5 @@ const axiosBeer = {
   }
 };
 
-axiosBeer.fetchByABV(11,12);
 
 module.exports = axiosBeer;
