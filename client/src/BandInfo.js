@@ -9,6 +9,7 @@ class BandInfo extends React.Component {
       previewUrl: this.props.band.previewUrl,
       albumImg: this.props.band.albumImg,
       loudness: this.props.band.loudness,
+      valence: this.props.band.valence,
       tempo: this.props.band.tempo,
       danceability: this.props.band.danceability,
       energy: this.props.band.energy,
@@ -54,6 +55,7 @@ class BandInfo extends React.Component {
           {clip}
           <button onClick={() => this.state.resetForm("")}>New Search</button>
           <img src={this.state.albumImg} alt={'album cover for' + this.state.songTitle}/>
+          <p>Valence: {this.state.valence}</p>
           <p>Tempo: {this.state.tempo}</p>
           <p>Loudness: {this.state.loudness}</p>
           <p>Danceability: {this.state.danceability}</p>
