@@ -42,20 +42,9 @@ module.exports = (app) => {
               res.json(musicObject);
             }
           });
-        }else{
-          res.send("Sorry, something went wrong.");
-        }
-
-            // axios.fetchTrackById(spotifyToken, "audio-features", trackId)
-            //   .then((features) => {
-            //     musicObject.loudness = features.loudness;
-            //     musicObject.tempo = features.tempo;
-            //     musicObject.energy = features.energy;
-            //     musicObject.danceability = features.danceability;
-            //     res.json(musicObject);
-            //   });
-
-
+          }else{
+            res.send("Sorry, something went wrong.");
+          }
         }).catch((error) => {
           console.log("there was an error here: " + error);
         });
@@ -92,6 +81,7 @@ function checkDB(id){
       musicObject.tempo = trackInfo.dataValues.tempo;
       musicObject.energy = trackInfo.dataValues.energy;
       musicObject.danceability = trackInfo.dataValues.danceability;
+      musicObject.valence = trackInfo.dataValues.valence;
       return true;
     }
   }).catch((err) => {
@@ -102,10 +92,12 @@ function checkDB(id){
 function makeFeaturesCall(){
   return axios.fetchTrackById(spotifyToken, "audio-features", trackId)
     .then((features) => {
+      console.log(features);
       musicObject.loudness = features.loudness;
       musicObject.tempo = features.tempo;
       musicObject.energy = features.energy;
       musicObject.danceability = features.danceability;
+      musicObject.valence = features.valence;
       db.TrackInfo.create({
         trackId: trackId,
         loudness: features.loudness,
