@@ -1,5 +1,5 @@
 const axios = require("../utils/axiosFunctions");
-
+const pairBeer = require("../utils/beerPairingFunctions");
 var spotifyToken;
 var db = require("../models");
 var trackId;
@@ -33,7 +33,6 @@ module.exports = (app) => {
           musicObject.previewUrl = response.items[0].preview_url;
           musicObject.albumImg = response.items[0].album.images[1].url;
           checkDB(trackId).then((result) => {
-            // res.json(musicObject);
             if(!result){
               makeFeaturesCall().then(()=> {
                 res.json(musicObject);
@@ -98,12 +97,14 @@ function makeFeaturesCall(){
       musicObject.energy = features.energy;
       musicObject.danceability = features.danceability;
       musicObject.valence = features.valence;
+      pairBeer.findBeer(musicObject);
       db.TrackInfo.create({
         trackId: trackId,
         loudness: features.loudness,
         tempo: features.tempo,
         energy: features.energy,
-        danceability: features.danceability
+        danceability: features.danceability,
+        valence: features.valence
       }).then((trackInfo) => {
         console.log(trackInfo);
       }).catch((err) => {
