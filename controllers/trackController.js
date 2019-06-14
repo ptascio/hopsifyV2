@@ -91,7 +91,6 @@ function checkDB(id){
 function makeFeaturesCall(){
   return axios.fetchTrackById(spotifyToken, "audio-features", trackId)
     .then((features) => {
-      console.log(features);
       musicObject.loudness = features.loudness;
       musicObject.tempo = features.tempo;
       musicObject.energy = features.energy;
