@@ -74,7 +74,7 @@ function checkDB(id){
   ) => {
 
     if(!trackInfo){
-      return false;
+      console.log("did not find track info");
     }else{
       musicObject.loudness = trackInfo.dataValues.loudness;
       musicObject.tempo = trackInfo.dataValues.tempo;
@@ -96,7 +96,8 @@ function makeFeaturesCall(){
       musicObject.energy = features.energy;
       musicObject.danceability = features.danceability;
       musicObject.valence = features.valence;
-      pairBeer.findBeer(musicObject);
+      var abvPair = pairBeer.findBeer(musicObject);
+      console.log(abvPair);
       db.TrackInfo.create({
         trackId: trackId,
         loudness: features.loudness,

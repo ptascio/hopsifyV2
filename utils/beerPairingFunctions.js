@@ -23,7 +23,9 @@ const pairBeer = {
     analysisAVG+=musicObject.danceability;
     analysisAVG+=musicObject.tempo;
     analysisAVG+=musicObject.loudness;
-    console.log(analysisAVG);
+    analysisAVG = analysisAVG/5;
+
+    return Math.round(analysisAVG/10);
   }
 };
 
