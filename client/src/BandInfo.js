@@ -14,6 +14,7 @@ class BandInfo extends React.Component {
       danceability: this.props.band.danceability,
       energy: this.props.band.energy,
       resetForm: this.props.getBandInfo,
+      abv: 5,
       pushToBeers: false
     };
 
@@ -38,7 +39,7 @@ class BandInfo extends React.Component {
     var goMatchBeers;
     if(this.state.pushToBeers) {return<Redirect to={{
         pathname: "/beer",
-        state: {bandMetric: ""}
+        state: {abvPair: this.state.abv}
         }}/>;}
 
     return(
@@ -55,6 +56,7 @@ class BandInfo extends React.Component {
           <p>Loudness: {this.state.loudness}</p>
           <p>Danceability: {this.state.danceability}</p>
           <p>Energy: {this.state.energy}</p>
+          <p>Abv: {this.state.abv}</p>
         </div>
       </article>
     );

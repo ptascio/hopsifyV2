@@ -5,7 +5,9 @@ class Beer extends React.Component {
 
   componentDidMount(){
     if(this.props.location.state){
-      console.log("cool");
+      console.log("BEER PROPS");
+      console.log(this.props.location.state);
+      console.log(this.props.location.state.abvPair);
     }else{
       console.log("false");
     }
