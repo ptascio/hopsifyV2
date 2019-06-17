@@ -6,7 +6,9 @@ class Beer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      beerMatch: ""
+      beerName: "",
+      beerImg: "",
+      beerDescription: ""
     };
   }
   componentDidMount(){
@@ -18,6 +20,11 @@ class Beer extends React.Component {
       var endPoint = `${punkAPI}?per_page=1&abv_gt=${abv}&abv_lt=${upperAbv}`;
       axios.get(endPoint).then((response) => {
         console.log(response.data[0]);
+        this.setState({
+          beerName: response.data[0].name,
+          beerImg: response.data[0].image_url,
+          beerDescription: response.data[0].description
+        });
       });
     }else{
       console.log("false");
@@ -25,6 +32,15 @@ class Beer extends React.Component {
   }
 
   render(){
+    var scope = {
+      imageStyle: {
+        height: 400,
+      },
+      pStyle: {
+        width: 400,
+        margin: "auto"
+      }
+    };
     if(!this.props.location.state){
       return <Redirect to= {{
         pathname: "/music",
@@ -33,7 +49,9 @@ class Beer extends React.Component {
     }
     return(
       <div>
-        Some Beers
+        <h1>{this.state.beerName}</h1>
+        <img style={scope.imageStyle} src={this.state.beerImg} alt={this.state.beerName + "logo"}/>
+        <p style={scope.pStyle}>{this.state.beerDescription}</p>
       </div>
     );
   }
