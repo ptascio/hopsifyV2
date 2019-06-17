@@ -70,9 +70,9 @@ module.exports = (app) => {
 
   app.get("/api/beer", (req, res) => {
     console.log(req.query);
-    beerCalls.fetchRandomBeer().then((r) => {
-      console.log(r.data.data);
-      res.send(r.data);
+    beerCalls.fetchRandomBeer(req.query.abv, req.query.abv2).then((r) => {
+      console.log(r);
+      res.send(r.data.data);
     }).catch((err) => {
       res.send(err);
     });
