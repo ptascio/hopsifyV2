@@ -1,10 +1,12 @@
 const axios = require("../utils/axiosFunctions");
 const pairBeer = require("../utils/beerPairingFunctions");
+const beerCalls = require("../utils/axiosBeerFunctions");
 var spotifyToken;
 var db = require("../models");
 var trackId;
 var artistId;
 var previewUrl;
+var abvPair;
 var musicObject = {};
 
 module.exports = (app) => {
@@ -65,6 +67,16 @@ module.exports = (app) => {
       res.send("Sorry, something went wrong.");
     }
   });
+
+  app.get("/api/beer", (req, res) => {
+    console.log(req.query);
+    beerCalls.fetchRandomBeer().then((r) => {
+      console.log(r.data.data);
+      res.send(r.data);
+    }).catch((err) => {
+      res.send(err);
+    });
+  });
 };
 
 function checkDB(id){
@@ -75,12 +87,14 @@ function checkDB(id){
 
     if(!trackInfo){
       console.log("did not find track info");
+      return false;
     }else{
       musicObject.loudness = trackInfo.dataValues.loudness;
       musicObject.tempo = trackInfo.dataValues.tempo;
       musicObject.energy = trackInfo.dataValues.energy;
       musicObject.danceability = trackInfo.dataValues.danceability;
       musicObject.valence = trackInfo.dataValues.valence;
+      musicObject.abvPair = trackInfo.dataValues.abvPair;
       return true;
     }
   }).catch((err) => {
@@ -96,15 +110,16 @@ function makeFeaturesCall(){
       musicObject.energy = features.energy;
       musicObject.danceability = features.danceability;
       musicObject.valence = features.valence;
-      var abvPair = pairBeer.findBeer(musicObject);
-      console.log(abvPair);
+      abvPair = pairBeer.findBeer(musicObject);
+      musicObject.abvPair = abvPair;
       db.TrackInfo.create({
         trackId: trackId,
         loudness: features.loudness,
         tempo: features.tempo,
         energy: features.energy,
         danceability: features.danceability,
-        valence: features.valence
+        valence: features.valence,
+        abvPair: abvPair
       }).then((trackInfo) => {
         console.log(trackInfo);
       }).catch((err) => {
@@ -113,4 +128,6 @@ function makeFeaturesCall(){
     }).catch((error) => {
       console.log("there was an error here: " + error);
     });
+
+
 }
