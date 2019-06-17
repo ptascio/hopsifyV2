@@ -29,7 +29,12 @@ class Beer extends React.Component {
       // });
       axios.get("/api/beer").then((resp) => {
         console.log("in beer resp");
-        console.log(resp);
+        console.log(resp.data.data);
+        var beerData = resp.data.data;
+        this.setState({
+          beerName: beerData.nameDisplay,
+          beerDescription: beerData.style.description,
+        });
       }).catch((err) => {
         console.log(err);
       });
