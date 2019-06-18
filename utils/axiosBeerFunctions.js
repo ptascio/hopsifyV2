@@ -1,18 +1,19 @@
 const axios = require("axios");
 const path = require("path");
 const punkBeerUrl = "https://api.punkapi.com/v2/beers/";
-const breweryDB = "https://sandbox-api.brewerydb.com/v2/beer/random";
+const breweryDB = "https://sandbox-api.brewerydb.com/v2/beer/";
 let config = {"Authorization": process.env.REACT_APP_BREW};
 const axiosBeer = {
   fetchRandomBeer: (abv, abv2) => {
     return axios({
-      url: breweryDB + `?abv=${abv},${abv2}`,
+      url: breweryDB + `random?abv=${abv},${abv2}`,
       method: "get",
       headers: config
     }).then((res) => {
-      return res;
+      var beerId = res.data.data.id;
+      fetchDetailsOfRandomBeer(beerId);
     }).catch((error) => {
-      return error;
+      console.log(error);
     });
   },
 
@@ -28,5 +29,17 @@ const axiosBeer = {
   }
 };
 
+function fetchDetailsOfRandomBeer(id) {
+  return axios({
+    url: breweryDB + id,
+    method: "get",
+    headers: config
+  }).then((res) => {
+    res.send(res.data.data);
+
+  }).catch((err) => {
+    console.log(err);
+  });
+}
 
 module.exports = axiosBeer;
