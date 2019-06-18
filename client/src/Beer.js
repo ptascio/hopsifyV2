@@ -10,7 +10,8 @@ class Beer extends React.Component {
     this.state = {
       beerName: "",
       beerImg: "",
-      beerDescription: ""
+      beerDescription: "",
+      beerStyleDescription: ""
     };
   }
   componentDidMount(){
@@ -34,11 +35,13 @@ class Beer extends React.Component {
         }
       }).then((resp) => {
         console.log("in beer resp");
-        console.log(resp.data.data);
-        var beerData = resp.data.data;
+        console.log(resp.data);
+        var beerData = resp.data;
         this.setState({
           beerName: beerData.nameDisplay,
-          beerDescription: beerData.style.description,
+          beerStyleDescription: beerData.style.description,
+          beerImg: beerData.labels.medium,
+          beerDescription: beerData.description
         });
       }).catch((err) => {
         console.log(err);
