@@ -11,9 +11,21 @@ const axiosBeer = {
       headers: config
     }).then((res) => {
       var beerId = res.data.data.id;
-      fetchDetailsOfRandomBeer(beerId);
+      return beerId;
     }).catch((error) => {
-      console.log(error);
+      return error;
+    });
+  },
+
+  fetchDetailsOfRandomBeer(id) {
+    return axios({
+      url: breweryDB + id,
+      method: "get",
+      headers: config
+    }).then((res) => {
+      return res.data.data;
+    }).catch((err) => {
+      return err;
     });
   },
 
@@ -29,17 +41,5 @@ const axiosBeer = {
   }
 };
 
-function fetchDetailsOfRandomBeer(id) {
-  return axios({
-    url: breweryDB + id,
-    method: "get",
-    headers: config
-  }).then((res) => {
-    res.send(res.data.data);
-
-  }).catch((err) => {
-    console.log(err);
-  });
-}
 
 module.exports = axiosBeer;
