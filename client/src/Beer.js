@@ -40,7 +40,7 @@ class Beer extends React.Component {
         this.setState({
           beerName: beerData.nameDisplay,
           beerStyleDescription: beerData.style.description,
-          beerImg: beerData.labels.medium,
+          beerImg: "./images/Bader-in-Office-Space-400x300.gif",
           beerDescription: beerData.description
         });
       }).catch((err) => {
@@ -67,6 +67,7 @@ class Beer extends React.Component {
         state: {noMetric: "You can't match beers until there is a match!"}
       }}/>;
     }
+
     return(
       <div>
         <h1>{this.state.beerName}</h1>
