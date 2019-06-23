@@ -27,6 +27,9 @@ var trackInfoSchema = new Schema({
   valence: {
     type: Number,
     required: true
+  },
+  abvPair: {
+    type: Number
   }
 }, {timestamps: true});
 
