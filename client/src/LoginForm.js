@@ -6,7 +6,8 @@ class LoginForm extends React.Component {
     super(props);
     this.state = {
       email: "email",
-      password: "password",
+      password: "",
+      username: "frank",
       notFound: "",
       currentUser: ""
     };
