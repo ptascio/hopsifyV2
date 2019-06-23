@@ -28,7 +28,7 @@ if(process.env.NODE_ENV === 'production') {
 // });
 
 require("./controllers/trackController.js")(app);
-
+require("./routes/api/user")(app);
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/hopsifyDB";
 
 mongoose.connect(MONGODB_URI);
