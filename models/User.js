@@ -16,6 +16,7 @@ var userSchema = new Schema({
   },
   username: {
     type: String,
+    required: true,
     unique: true
   }
 });
@@ -23,8 +24,3 @@ var userSchema = new Schema({
 var User = mongoose.model("User", userSchema);
 
 module.exports = User;
-
-User.create({ email: 'email', password: "password", username: "frank" }, function (err, small) {
-  if (err) return (err);
-  console.log("saved");
-});

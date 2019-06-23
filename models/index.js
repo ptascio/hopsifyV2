@@ -1,4 +1,5 @@
 module.exports = {
   TrackSearch: require("./TrackSearch"),
-  TrackInfo: require("./TrackInfo")
+  TrackInfo: require("./TrackInfo"),
+  User: require("./User")
 };
