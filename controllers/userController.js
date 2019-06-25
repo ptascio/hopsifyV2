@@ -16,7 +16,7 @@ module.exports = {
             }else{
               console.log(yup);
               console.log(user);
-              res.json(user);
+              res.json({email: user.email, _id: user._id});
             }
         });
       }
