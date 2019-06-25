@@ -1,28 +1,16 @@
-
-
 const db = require("../models");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const password = "password";
+var password = "password";
 var parsedHash;
 
 
 function checkPassword(submittedPassword, dbHash){
-  bcrypt.compare(submittedPassword, dbHash, function(err, response) {
-    if(err){
-      return err;
-    }
-    return response;
-  });
+  return bcrypt.compare(submittedPassword, dbHash);
 }
 
 function hashPassword(submittedPassword){
-  bcrypt.hash(password, saltRounds, function(err, hash) {
-    if(err){
-      return;
-    }
-    return hash;
-  });
+  return bcrypt.hash(submittedPassword, saltRounds);
 }
 
 function checkForEmail(email){
@@ -46,7 +34,7 @@ function checkForUsername(username, cb){
 module.exports = {
   findUser: function(req, res) {
     console.log("in here");
-    db.User.find({email: req.body.email})
+    db.User.findOne({email: req.body.email})
     .then((user) => {
       console.log(user.length === 0);
       if(checkPassword("password", user.password)){
@@ -63,25 +51,6 @@ module.exports = {
     console.log("down here");
   },
   createUser: function(req, res) {
-    db.User.create({
-      email: "email",
-      username: "frank",
-      password: "12345"
-    }).then((user) => {
-      console.log(user);
-    }).catch((err) => {
-      console.log("err: " + err);
-    });
-
-
-
-
-
-
-
-
-
-
 
   }
 };
