@@ -34,7 +34,8 @@ class App extends React.Component {
     return (
 <Router history={history}>
     <div className="App">
-            <Route exact path="/" component={Nav} />
+      <Nav />
+            
             <Route path="/login" component={LoginForm} />
             <Route path="/music" component={FormAndInfo} />
             <Route path="/beer" component={Beer} />
