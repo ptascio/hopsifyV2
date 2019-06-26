@@ -7,6 +7,7 @@ var parsedHash;
 
 module.exports = {
   loginUser: function(req, res) {
+    console.log(req.body);
     db.User.findOne({email: req.body.email})
     .then((user) => {
       if(user){
@@ -16,9 +17,11 @@ module.exports = {
             }else{
               console.log(yup);
               console.log(user);
-              res.json({email: user.email, _id: user._id});
+              res.json({email: user.email, _id: user._id, username: user.username});
             }
         });
+      }else{
+        return res.status(400);
       }
 
     }).catch((err) => {
@@ -26,6 +29,29 @@ module.exports = {
     });
   },
   createUser: function(req, res) {
+    db.User.findOne({email: req.body.email})
+    .then((user) => {
+      if(user === null){
+        console.log("save this one");
+        var newUser = new db.User({
+          email: req.body.email,
+          password: req.body.password
+        });
+        newUser.save().then(() => {
+          db.User.findOne({email: req.body.email}).then((latestUser) => {
+            //send to front end
+            console.log(latestUser);
+          });
+        }).catch((err) => {
+          console.log(err.message);
+        });
+      }else{
+        res.json("Email account already exists");
+      }
 
+    })
+    .catch((err) => {
+      console.log("err: " + err);
+    });
   }
 };
