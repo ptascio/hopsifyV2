@@ -5,20 +5,25 @@ import { withRouter } from "react-router-dom";
 class Nav extends React.Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      cookie: ""
+    };
     this.logout = this.logout.bind(this);
   }
 
   componentDidMount(){
-    console.log(this.props.history);
+    this.setState({
+      cookie: this.props.cookies
+    });
   }
 
   logout(){
-    document.cookie = "whatevs=cookie";
-    console.log(document.cookie);
+    var now = new Date();
+    document.cookie = `Hopsify_userId=;expires=${now}`;
+    
   }
   render(){
-    if(document.cookie){
+    if(this.state.cookie){
       return(
         <nav>
           <ul>
