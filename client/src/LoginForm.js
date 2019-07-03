@@ -9,11 +9,13 @@ class LoginForm extends React.Component {
       password: "",
       username: "",
       notFound: "",
-      currentUser: ""
+      currentUser: "",
+      cookie: false
     };
     this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitCreateAccount = this.handleSubmitCreateAccount.bind(this);
+    this.handleResponse = this.handleResponse.bind(this);
   }
   handleSubmitLogin(e){
     e.preventDefault();
@@ -22,9 +24,18 @@ class LoginForm extends React.Component {
       method: "post",
       data: this.state
     }).then((response) => {
-      console.log("in here");
-      this.handleResponse(response);
-    }).catch((err) => {
+      console.log("in response thumbs up");
+      this.setState({
+         currentUser: response.data.email,
+         cookie: true
+      });
+
+    }).then(() => {
+      this.props.setCookieUpdate(true);
+    })
+    .catch((err) => {
+      console.log("login form err:" + err);
+      console.log(this);
       this.setState({
         notFound: "We could not find that user. Please check email and password are correct or sign up for an account."
       });
@@ -52,21 +63,20 @@ class LoginForm extends React.Component {
   }
 
   handleResponse(res){
-      console.log("here");
+      console.log("in handle response");
       console.log(res);
       var id = res.data._id;
-      document.cookie = `userId=${id};max-age=600`;
+      document.cookie = `Hopsify_userId=${id};max-age=600`;
       this.setState({
-        currentUser: res.data.email
+        currentUser: res.data.email,
+        cookie: true
       });
+  }
+
+  componentWillUnmount(){
 
   }
 
-  componentDidMount(){
-    if(document.cookie){
-      console.log(this.props.history.goBack());
-    }
-  }
 
   render(){
     return(
