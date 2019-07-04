@@ -10,6 +10,9 @@ var trackSearchSchema = new Schema({
   artistName: {
     type: String,
     required: true
+  },
+  userId: {
+    type: String
   }
 }, {timestamps: true});
 

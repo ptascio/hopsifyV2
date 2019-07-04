@@ -5,6 +5,7 @@ const axios = require("axios");
 
 
 class TrackForm extends React.Component {
+
   constructor(props){
     super(props);
     this.state = {
@@ -12,7 +13,8 @@ class TrackForm extends React.Component {
       artistName: '',
       bandInfo: "",
       submitted: false,
-      formError: ""
+      formError: "",
+
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,13 +27,15 @@ class TrackForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
+    var userId = document.cookie.split("=")[1];
     if(this.state.artistName || this.state.trackName){
       axios({
         url: "/api/track",
         method: "get",
         params: {
           artistName: this.state.artistName,
-          trackName: this.state.trackName
+          trackName: this.state.trackName,
+          userId: userId
         }
       }).then((response) => {
         console.log("in response form");

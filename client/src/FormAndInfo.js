@@ -14,7 +14,6 @@ class FormAndInfo extends React.Component {
   }
 
   getBandInfo(stateValueFromForm) {
-    console.log("form: " + stateValueFromForm);
       this.setState({
         bandInfo: stateValueFromForm
       });
@@ -31,7 +30,6 @@ class FormAndInfo extends React.Component {
 
 
   render(){
-    console.log(this.state);
     return(
       <article>
         <p>{this.state.noBeerMatch}</p>
