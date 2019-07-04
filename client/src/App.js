@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import './App.css';
 import Nav from "./Nav";
@@ -12,9 +12,10 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      username: ""
+      cookieOnWindow: false
     };
     this.connectToServer = this.connectToServer.bind(this);
+    this.sendCookieUpdate = this.sendCookieUpdate.bind(this);
   }
 
   connectToServer(){
@@ -22,26 +23,48 @@ class App extends React.Component {
   }
 
   checkForCookies(){
-    console.log("cookies: " + document.cookie);
+    var cookie = document.cookie;
+    console.log(cookie.split("=")[0]==="Hopsify_userId");
+    if(cookie.split("=")[0]==="Hopsify_userId"){
+      this.setState({
+        cookieOnWindow: true
+      });
+    }
+  }
+
+  sendCookieUpdate(t){
+    console.log("t" + t);
+    this.setState({
+      cookieOnWindow: t
+    });
   }
 
   componentDidMount(){
-    this.connectToServer();
     this.checkForCookies();
+    this.connectToServer();
   }
 
   render(){
+   console.log("true or false: " + this.state.cookieOnWindow);
+    if(!this.state.cookieOnWindow){
+      return(
+        <Router history={history}>
+          <div className="App">
+           <LoginForm setCookieUpdate={this.sendCookieUpdate}/>
+          </div>
+        </Router>
+      );
+    }else{
     return (
 <Router history={history}>
+  <p>"Rendering true"</p>
     <div className="App">
-      <Nav />
-            
-            <Route path="/login" component={LoginForm} />
+      <Nav cookies={this.state.cookieOnWindow} setCookieUpdate={this.sendCookieUpdate}/>
             <Route path="/music" component={FormAndInfo} />
             <Route path="/beer" component={Beer} />
       </div>
     </Router>
-  );
+  );}
 }
 }
 

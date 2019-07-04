@@ -25,10 +25,7 @@ class LoginForm extends React.Component {
       data: this.state
     }).then((response) => {
       console.log("in response thumbs up");
-      this.setState({
-         currentUser: response.data.email,
-         cookie: true
-      });
+      this.handleResponse(response);
 
     }).then(() => {
       this.props.setCookieUpdate(true);
@@ -67,6 +64,10 @@ class LoginForm extends React.Component {
       console.log(res);
       var id = res.data._id;
       document.cookie = `Hopsify_userId=${id};max-age=600`;
+      window.hopsifyUser = {
+        email: res.data.email,
+        id: res.data._id
+      };
       this.setState({
         currentUser: res.data.email,
         cookie: true
