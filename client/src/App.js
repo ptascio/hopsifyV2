@@ -54,7 +54,7 @@ class App extends React.Component {
     }else{
     return (
 <Router history={history}>
-  <p>"Rendering true"</p>
+  <p>Hello {window.sessionStorage.hopsifyUserEmail}</p>
     <div className="App">
       <Nav cookies={this.state.cookieOnWindow} setCookieUpdate={this.sendCookieUpdate}/>
             <Route path="/music" component={FormAndInfo} />

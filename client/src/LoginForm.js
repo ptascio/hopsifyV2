@@ -24,7 +24,7 @@ class LoginForm extends React.Component {
       method: "post",
       data: this.state
     }).then((response) => {
-      console.log("in response thumbs up");
+      console.log(response);
       this.handleResponse(response);
 
     }).then(() => {
@@ -60,10 +60,8 @@ class LoginForm extends React.Component {
   handleResponse(res){
       var id = res.data._id;
       document.cookie = `Hopsify_userId=${id};max-age=600`;
-      window.hopsifyUser = {
-        email: res.data.email,
-        id: res.data._id
-      };
+      window.sessionStorage.hopsifyUserEmail = res.data.email;
+      window.sessionStorage.hopsifyUserId = res.data._id;
       this.setState({
         currentUser: res.data.email,
         cookie: true
