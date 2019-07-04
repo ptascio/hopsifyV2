@@ -69,6 +69,7 @@ class Beer extends React.Component {
 
     return(
       <div>
+        <p>Showing match result for {this.props.location.state.trackName} by {this.props.location.state.artistName}:</p>
         <h1>{this.state.beerName}</h1>
         <img style={scope.imageStyle} src={this.state.beerImg} alt={this.state.beerName + "logo"}/>
         <p style={scope.pStyle}>{this.state.beerDescription}</p>

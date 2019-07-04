@@ -14,6 +14,7 @@ class BandInfo extends React.Component {
       danceability: this.props.band.danceability,
       energy: this.props.band.energy,
       artistId: this.props.band.artistId,
+      artistName: this.props.band.artistName,
       resetForm: this.props.getBandInfo,
       abv: 5,
       pushToBeers: false
