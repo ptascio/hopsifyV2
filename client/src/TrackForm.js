@@ -41,6 +41,7 @@ class TrackForm extends React.Component {
         console.log("in response form");
         var band = response.data;
         this.parseError(band);
+        band.artistName = this.state.artistName;
         this.setState({
           bandInfo: band,
           submitted: true,

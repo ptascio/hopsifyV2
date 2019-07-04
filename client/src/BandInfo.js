@@ -13,6 +13,7 @@ class BandInfo extends React.Component {
       tempo: this.props.band.tempo,
       danceability: this.props.band.danceability,
       energy: this.props.band.energy,
+      artistId: this.props.band.artistId,
       resetForm: this.props.getBandInfo,
       abv: 5,
       pushToBeers: false
@@ -27,7 +28,11 @@ class BandInfo extends React.Component {
     });
   }
 
-
+  componentDidMount(){
+    console.log(this.props);
+      window.sessionStorage.trackName = this.state.songTitle;
+      window.sessionStorage.artistId = this.state.artistId;
+  }
 
   render(){
     var clip;
@@ -39,7 +44,12 @@ class BandInfo extends React.Component {
     var goMatchBeers;
     if(this.state.pushToBeers) {return<Redirect to={{
         pathname: "/beer",
-        state: {abvPair: this.state.abv}
+        state: {
+          abvPair: this.state.abv,
+          trackName: this.state.songTitle,
+          artistName: this.state.artistName,
+          artistId: this.state.artistId
+        }
         }}/>;}
 
     return(
