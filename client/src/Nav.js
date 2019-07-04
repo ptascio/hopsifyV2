@@ -12,18 +12,20 @@ class Nav extends React.Component {
   }
 
   componentDidMount(){
+    console.log("in nav: " + this.props.cookies);
     this.setState({
       cookie: this.props.cookies
     });
   }
 
   logout(){
+    console.log(this.props);
     var now = new Date();
     document.cookie = `Hopsify_userId=;expires=${now}`;
-    
+    this.props.setCookieUpdate(false);
   }
   render(){
-    if(this.state.cookie){
+    if(this.state.cookie === true){
       return(
         <nav>
           <ul>

@@ -3,5 +3,6 @@ var userController = require("../../controllers/userController");
 
 
 module.exports = (app) => {
-  app.post("/api/login", userController.createUser);
+  app.post("/api/login", userController.loginUser);
+  app.post("/api/create-account", userController.createUser);
 };

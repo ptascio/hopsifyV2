@@ -34,9 +34,8 @@ class Beer extends React.Component {
           abv2: upperAbv
         }
       }).then((resp) => {
-        console.log("in beer resp");
-        console.log(resp.data);
         var beerData = resp.data;
+        console.log("beerData " + beerData);
         this.setState({
           beerName: beerData.nameDisplay,
           beerStyleDescription: beerData.style.description,

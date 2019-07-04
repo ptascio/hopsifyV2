@@ -24,7 +24,8 @@ module.exports = (app) => {
     if(spotifyToken && artist && track){
       db.TrackSearch.create({
         trackName: track,
-        artistName: artist
+        artistName: artist,
+        userId: req.query.userId
       }).then(() => {
         axios.fetchTrackByNameAndArtist(artist, track, spotifyToken)
         .then((response) => {

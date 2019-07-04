@@ -31,8 +31,6 @@ class LoginForm extends React.Component {
       this.props.setCookieUpdate(true);
     })
     .catch((err) => {
-      console.log("login form err:" + err);
-      console.log(this);
       this.setState({
         notFound: "We could not find that user. Please check email and password are correct or sign up for an account."
       });
@@ -60,8 +58,6 @@ class LoginForm extends React.Component {
   }
 
   handleResponse(res){
-      console.log("in handle response");
-      console.log(res);
       var id = res.data._id;
       document.cookie = `Hopsify_userId=${id};max-age=600`;
       window.hopsifyUser = {

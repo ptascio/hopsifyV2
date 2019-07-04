@@ -24,7 +24,6 @@ class App extends React.Component {
 
   checkForCookies(){
     var cookie = document.cookie;
-    console.log(cookie.split("=")[0]==="Hopsify_userId");
     if(cookie.split("=")[0]==="Hopsify_userId"){
       this.setState({
         cookieOnWindow: true
@@ -33,7 +32,6 @@ class App extends React.Component {
   }
 
   sendCookieUpdate(t){
-    console.log("t" + t);
     this.setState({
       cookieOnWindow: t
     });
@@ -45,7 +43,6 @@ class App extends React.Component {
   }
 
   render(){
-   console.log("true or false: " + this.state.cookieOnWindow);
     if(!this.state.cookieOnWindow){
       return(
         <Router history={history}>
