@@ -1,8 +1,7 @@
 import React from "react";
 import { Redirect, withRouter } from "react-router-dom";
+import PairLikes from "./PairLikes";
 const axios = require("axios");
-const punkAPI = "https://api.punkapi.com/v2/beers/";
-
 
 class Beer extends React.Component {
   constructor(props){
@@ -18,16 +17,6 @@ class Beer extends React.Component {
     if(this.props.location.state){
       var abv = this.props.location.state.abvPair;
       var upperAbv = abv+1;
-      // var endPoint = `${punkAPI}?per_page=3&abv_gt=${abv}&abv_lt=${upperAbv}`;
-      // axios.get(breweryDB).then((response) => {
-      //   console.log(response.data[0]);
-      //   window.beerData = response.data;
-      //   this.setState({
-      //     beerName: response.data[0].name,
-      //     beerImg: response.data[0].image_url,
-      //     beerDescription: response.data[0].description
-      //   });
-      // });
       axios.get("/api/beer", {
         params: {
           abv: abv,
@@ -45,8 +34,7 @@ class Beer extends React.Component {
         this.setState({
           beerName: beerData.nameDisplay,
           beerStyleDescription: beerData.style.description,
-          beerImg: `${picture}`,
-          beerDescription: beerData.description
+          beerImg: `${picture}`
         });
       }).catch((err) => {
         console.log(err);
@@ -75,6 +63,10 @@ class Beer extends React.Component {
 
     return(
       <div>
+        <PairLikes
+          band={this.props.location.state.artistName}
+          artist={this.props.location.state.artistName}
+          beerName={this.state.beerName}/>
         <p>Showing match result for {this.props.location.state.trackName} by {this.props.location.state.artistName}:</p>
         <h1>{this.state.beerName}</h1>
         <img style={scope.imageStyle} src={this.state.beerImg} alt={this.state.beerName + " logo"}/>
