@@ -7,7 +7,6 @@ var parsedHash;
 
 module.exports = {
   loginUser: function(req, res) {
-    console.log(req.body);
     db.User.findOne({email: req.body.email})
     .then((user) => {
       if(user){

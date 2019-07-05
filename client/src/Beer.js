@@ -60,13 +60,19 @@ class Beer extends React.Component {
         state: {noMetric: "You can't match beers until there is a match!"}
       }}/>;
     }
+    var showPairs;
+    if(this.state.beerName.length > 1){
+      showPairs =   <PairLikes
+          band={this.props.location.state.artistName}
+          track={this.props.location.state.trackName}
+          beerName={this.state.beerName}/>;
+      }else{
+        showPairs = <span></span>;
+      }
 
     return(
       <div>
-        <PairLikes
-          band={this.props.location.state.artistName}
-          artist={this.props.location.state.artistName}
-          beerName={this.state.beerName}/>
+        {showPairs}
         <p>Showing match result for {this.props.location.state.trackName} by {this.props.location.state.artistName}:</p>
         <h1>{this.state.beerName}</h1>
         <img style={scope.imageStyle} src={this.state.beerImg} alt={this.state.beerName + " logo"}/>

@@ -16,7 +16,7 @@ var pairLikeSchema = new Schema({
     type: String,
     required: true
   },
-  artistId: {
+  bandName: {
     type: String,
     required: true
   }
