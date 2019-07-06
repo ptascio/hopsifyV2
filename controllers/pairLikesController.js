@@ -37,5 +37,8 @@ module.exports = {
     }).catch((err) => {
       console.log(err);
     });
+  },
+  downVote: function(req, res){
+    console.log(req.params);
   }
 };

@@ -1,13 +1,13 @@
 .ButtonStyle {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
 }
 
 .AlreadyUpVoted {
-  background: green;
+  background: rgb(30,215,96);
 }
 
 .IconStyle {
-  width: 20px;
-  height: 20px;
+  width: 60px;
+  height: 60px;
 }

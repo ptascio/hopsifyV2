@@ -19,6 +19,7 @@ class PairLikes extends React.Component {
     };
 
     this.upVote = this.upVote.bind(this);
+    this.downVote = this.downVote.bind(this);
     this.nullVote = this.nullVote.bind(this);
   }
 
@@ -57,12 +58,21 @@ class PairLikes extends React.Component {
     });
   }
 
+  downVote(){
+    axios.delete(`/api/downVote/metallica/Sad But True/T.L.A. I.P.A./5d13e91c3ffe146c6c2a84f2`).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
   nullVote(){
     console.log("null");
   }
   render(){
     var backGround;
     var upVoteClick;
+    var downVoteClick;
     console.log(this.state);
     if(this.state.userLiked === "already liked"){
       backGround = "ButtonStyle AlreadyUpVoted";
@@ -74,9 +84,9 @@ class PairLikes extends React.Component {
 
     return(
       <section>
-      <button onClick={upVoteClick} className={backGround}><img className="IconStyle" alt="Up vote icon" src="/images/upVote.png"/></button>
+      <button onClick={upVoteClick} className={backGround}><img className="IconStyle" alt="Up vote icon" src="/images/emptyBottle.png"/></button>
       0
-      <button className="ButtonStyle"><img className="IconStyle" alt="Down vote icon" src="/images/downVote.png"/></button>
+      <button onClick={this.downVote} className="ButtonStyle"><img className="IconStyle" alt="Down vote icon" src="/images/downVote.png"/></button>
       <p>LIKES: {this.state.likes}</p>
       </section>
     );
