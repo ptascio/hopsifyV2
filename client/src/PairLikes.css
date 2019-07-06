@@ -1,0 +1,13 @@
+.ButtonStyle {
+  width: 40px;
+  height: 40px;
+}
+
+.UpVoted {
+  background: green;
+}
+
+.IconStyle {
+  width: 20px;
+  height: 20px;
+}
