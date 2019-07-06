@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 var pairLikeSchema = new Schema({
   userId: {
     type: String,
-    required: true,
-    unique: true
+    required: true  
   },
   beerName: {
     type: String,
