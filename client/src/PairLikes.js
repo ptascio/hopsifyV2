@@ -20,6 +20,7 @@ class PairLikes extends React.Component {
 
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
+    this.voteClick = this.voteClick.bind(this);
     this.nullVote = this.nullVote.bind(this);
   }
 
@@ -49,21 +50,46 @@ class PairLikes extends React.Component {
       console.log(err);
     });
   }
+
+  fetchLikes(){
+    const promises = Promise.all([
+      axios.get(`/api/findPairs/${this.state.band}/${this.state.track}/${this.state.beerName}`),
+      axios.get(`/api/findIfUserLiked/${this.state.band}/${this.state.track}/${this.state.beerName}/${this.state.userId}`)
+    ]).then((values)=> {
+      var likes = values[0].data;
+      var userLiked = values[1].data;
+      console.log(values[1].data);
+      this.setState({
+        likes: `${likes}`,
+        userLiked: `${userLiked}`
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
   upVote(){
     var userId = window.sessionStorage.hopsifyUserId;
     axios.post(`/api/upVote/${this.state.band}/${this.state.track}/${this.state.beerName}/${userId}`).then((res) => {
-      console.log(res);
+      this.fetchLikes();
     }).catch((err) => {
       console.log(err);
     });
   }
 
   downVote(){
-    axios.delete(`/api/downVote/metallica/Sad But True/T.L.A. I.P.A./5d13e91c3ffe146c6c2a84f2`).then((res) => {
-      console.log(res);
+    axios.delete(`/api/downVote/${this.state.band}/${this.state.track}/${this.state.beerName}/${this.state.userId}`).then((res) => {
+      this.fetchLikes();
     }).catch((err) => {
       console.log(err);
     });
+  }
+
+  voteClick(n){
+    if(n === "down"){
+      this.downVote();
+    }else{
+      this.upVote();
+    }
   }
 
   nullVote(){
@@ -71,22 +97,20 @@ class PairLikes extends React.Component {
   }
   render(){
     var backGround;
-    var upVoteClick;
+    var voterClick;
     var downVoteClick;
     console.log(this.state);
     if(this.state.userLiked === "already liked"){
       backGround = "ButtonStyle AlreadyUpVoted";
-      upVoteClick = this.nullVote;
+      voterClick = () => {this.voteClick("down");};
     }else{
       backGround = "ButtonStyle";
-      upVoteClick = this.upVote;
+      voterClick = () => {this.voteClick("up");};
     }
 
     return(
       <section>
-      <button onClick={upVoteClick} className={backGround}><img className="IconStyle" alt="Up vote icon" src="/images/emptyBottle.png"/></button>
-      0
-      <button onClick={this.downVote} className="ButtonStyle"><img className="IconStyle" alt="Down vote icon" src="/images/downVote.png"/></button>
+      <button onClick={voterClick} className={backGround}><img className="IconStyle" alt="Up vote icon" src="/images/emptyBottle.png"/></button>
       <p>LIKES: {this.state.likes}</p>
       </section>
     );
