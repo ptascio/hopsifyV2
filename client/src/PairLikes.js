@@ -99,18 +99,21 @@ class PairLikes extends React.Component {
     var backGround;
     var voterClick;
     var downVoteClick;
+    var imgSource;
     console.log(this.state);
     if(this.state.userLiked === "already liked"){
-      backGround = "ButtonStyle AlreadyUpVoted";
+      backGround = "ButtonStyle";
+      imgSource = "/images/likedBottle.png";
       voterClick = () => {this.voteClick("down");};
     }else{
       backGround = "ButtonStyle";
+      imgSource = "/images/emptyBottle.png";
       voterClick = () => {this.voteClick("up");};
     }
 
     return(
       <section>
-      <button onClick={voterClick} className={backGround}><img className="IconStyle" alt="Up vote icon" src="/images/emptyBottle.png"/></button>
+      <button onClick={voterClick} className={backGround}><img className="IconStyle" alt="Up vote icon" src={imgSource}/></button>
       <p>LIKES: {this.state.likes}</p>
       </section>
     );
