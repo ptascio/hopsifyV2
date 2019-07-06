@@ -1,3 +1,6 @@
+// axios.get(`/api/findPairs/${this.props.band}/${this.props.track}/${this.props.beerName}`),
+// axios.get(`/api/findIfUserLiked/${this.props.band}/${this.props.track}/${this.props.beerName}/${userId}`)
+
 import React from "react";
 import './PairLikes.css';
 const axios = require("axios");
@@ -16,6 +19,7 @@ class PairLikes extends React.Component {
     };
 
     this.upVote = this.upVote.bind(this);
+    this.nullVote = this.nullVote.bind(this);
   }
 
 
@@ -30,11 +34,12 @@ class PairLikes extends React.Component {
       userId: `${userId}`
     });
     const promises = Promise.all([
-      axios.get(`/api/findPairs/${this.props.band}/${this.props.track}/${this.props.beerName}`),
-      axios.get(`/api/findIfUserLiked/${this.props.band}/${this.props.track}/${this.props.beerName}/${userId}`)
+      axios.get(`/api/findPairs/metallica/Sad But True/T.L.A. I.P.A.`),
+      axios.get(`/api/findIfUserLiked/metallica/Sad But True/T.L.A. I.P.A./5d13e91c3ffe146c6c2a84f2`)
     ]).then((values)=> {
       var likes = values[0].data;
       var userLiked = values[1].data;
+      console.log(values[1].data);
       this.setState({
         likes: `${likes}`,
         userLiked: `${userLiked}`
@@ -51,18 +56,25 @@ class PairLikes extends React.Component {
       console.log(err);
     });
   }
+
+  nullVote(){
+    console.log("null");
+  }
   render(){
     var backGround;
+    var upVoteClick;
     console.log(this.state);
-    if(this.state.userLiked !== "null"){
+    if(this.state.userLiked === "already liked"){
       backGround = "ButtonStyle AlreadyUpVoted";
+      upVoteClick = this.nullVote;
     }else{
       backGround = "ButtonStyle";
+      upVoteClick = this.upVote;
     }
 
     return(
       <section>
-      <button onClick={this.upVote} className={backGround}><img className="IconStyle" alt="Up vote icon" src="/images/upVote.png"/></button>
+      <button onClick={upVoteClick} className={backGround}><img className="IconStyle" alt="Up vote icon" src="/images/upVote.png"/></button>
       0
       <button className="ButtonStyle"><img className="IconStyle" alt="Down vote icon" src="/images/downVote.png"/></button>
       <p>LIKES: {this.state.likes}</p>

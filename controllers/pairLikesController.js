@@ -19,7 +19,7 @@ module.exports = {
       bandName: req.params.band,
       userId: req.params.userId
     }).then((response) => {
-      res.json(response);
+      res.json("already liked");
     }).catch((err) => {
       console.log(err);
     });
