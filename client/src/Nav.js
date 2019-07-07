@@ -19,7 +19,6 @@ class Nav extends React.Component {
   }
 
   logout(){
-    console.log(this.props);
     var now = new Date();
     document.cookie = `Hopsify_userId=;expires=${now}`;
     this.props.setCookieUpdate(false);
@@ -28,6 +27,8 @@ class Nav extends React.Component {
     if(this.state.cookie === true){
       return(
         <nav>
+          <h1><a href="/">Hopsify</a></h1>
+          <img class="logo" src="../images/hopsifyLogo1.png" alt=""/>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -47,6 +48,8 @@ class Nav extends React.Component {
     }else{
       return(
         <nav>
+          <h1><a href="/">Hopsify</a></h1>
+          <img class="logo" src="../images/hopsifyLogo1.png" alt=""/>
           <ul>
             <li>
               <Link to="/login">Login</Link>
