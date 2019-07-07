@@ -1,4 +1,5 @@
 import React from "react";
+import "./UserPairs.css";
 const axios = require("axios");
 
 class UserPairs extends React.Component {
@@ -24,11 +25,18 @@ class UserPairs extends React.Component {
     });
   }
 
-  render(){
+  removePair(id){
+    axios.delete(`/api/removePair/${id}`).then((res) => {
+      this.fetchPairs();
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
 
+  render(){
     let rows = this.state.userLikes.map((pair) => {
-      return(<tr key={pair._id} id={pair._id}>
-        <td><img src="../images/likedBottle.png" /></td>
+      return(<tr key={pair._id}>
+        <td id={pair._id} onClick={() => {this.removePair(pair._id)}}><img className={"LikedIcon"} src="../images/likedBottle.png" /></td>
         <td>{pair.bandName}</td>
         <td>{pair.trackName}</td>
         <td>{pair.beerName}</td>
@@ -40,6 +48,7 @@ class UserPairs extends React.Component {
         <table>
           <thead>
           <tr>
+            <th scope="col">Delete</th>
             <th scope="col">Band</th>
             <th scope="col">Track</th>
             <th scope="col">Beer</th>

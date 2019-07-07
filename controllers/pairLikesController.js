@@ -19,8 +19,6 @@ module.exports = {
       bandName: req.params.band,
       userId: req.params.userId
     }).then((response) => {
-      console.log("find one response");
-      console.log(response);
       if(response === null){
         res.json("null");
       }else{
@@ -58,9 +56,17 @@ module.exports = {
   },
   findUserLikes: function(req, res){
     db.PairLike.find({
-      where: {
         userId: req.params.userId
-      }
+    }).then((response) => {
+      res.json(response);
+    }).catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+  },
+  deletePair: function(req, res){
+    db.PairLike.deleteOne({
+      _id: req.params.id
     }).then((response) => {
       res.json(response);
     }).catch((err) => {
