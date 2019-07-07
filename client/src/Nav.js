@@ -28,7 +28,7 @@ class Nav extends React.Component {
       return(
         <nav>
           <h1><a href="/">Hopsify</a></h1>
-          <img class="logo" src="../images/hopsifyLogo1.png" alt=""/>
+          <img className="logo" src="../images/hopsifyLogo1.png" alt=""/>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -49,7 +49,7 @@ class Nav extends React.Component {
       return(
         <nav>
           <h1><a href="/">Hopsify</a></h1>
-          <img class="logo" src="../images/hopsifyLogo1.png" alt=""/>
+          <img className="logo" src="../images/hopsifyLogo1.png" alt=""/>
           <ul>
             <li>
               <Link to="/login">Login</Link>

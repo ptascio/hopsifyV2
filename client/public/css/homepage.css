@@ -11,3 +11,8 @@ a {
 .logo {
   width: 100px;
 }
+
+.logo:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
