@@ -55,5 +55,16 @@ module.exports = {
     }).catch((err) => {
       res.json(err);
     });
+  },
+  findUserLikes: function(req, res){
+    db.PairLike.find({
+      where: {
+        userId: req.params.userId
+      }
+    }).then((response) => {
+      res.json(response);
+    }).catch((err) => {
+      res.json(err);
+    });
   }
 };
