@@ -6,6 +6,7 @@ import Nav from "./Nav";
 import FormAndInfo from "./FormAndInfo";
 import Beer from "./Beer";
 import LoginForm from "./LoginForm";
+import UserPairs from "./UserPairs";
 const history = createBrowserHistory();
 
 class App extends React.Component {
@@ -59,6 +60,7 @@ class App extends React.Component {
       <Nav cookies={this.state.cookieOnWindow} setCookieUpdate={this.sendCookieUpdate}/>
             <Route path="/music" component={FormAndInfo} />
             <Route path="/beer" component={Beer} />
+            <Route path="/pairs" component={UserPairs} />
       </div>
     </Router>
   );}

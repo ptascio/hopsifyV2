@@ -36,6 +36,9 @@ class Nav extends React.Component {
               <a href="/music">Search</a>
             </li>
             <li>
+              <Link to="/pairs">Pairs</Link>
+            </li>
+            <li>
               <Link to="/logout" onClick={this.logout}>Logout</Link>
             </li>
           </ul>
