@@ -25,12 +25,15 @@ const monthsOfYear = {
   10: "November",
   11: "December"
 };
+
+var dontTouchData;
 class UserPairs extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       userLikes: [],
-      datesSorted: true
+      datesSorted: true,
+      alreadySorted: false
     };
     this.reverseDate = this.reverseDate.bind(this);
     this.sortByName = this.sortByName.bind(this);
@@ -43,7 +46,7 @@ class UserPairs extends React.Component {
   fetchPairs(){
     var userId = window.sessionStorage.hopsifyUserId;
     axios.get(`/api/userPairs/${userId}`).then((res) => {
-
+      dontTouchData = res.data;
       this.setState({
         userLikes: res.data
       });
@@ -72,7 +75,7 @@ class UserPairs extends React.Component {
   }
 
   reverseDate(){
-    var data = this.state.userLikes;
+    var data = dontTouchData;
     var returnData;
     if(this.state.datesSorted){
       returnData = true;
@@ -96,8 +99,6 @@ class UserPairs extends React.Component {
     });
   }
 
-
-
   sortByName(name){
     function compare(a,b){
       if(a[`${name}`] < b[`${name}`]){
@@ -108,11 +109,28 @@ class UserPairs extends React.Component {
       }
       return 0;
     }
-    var data = this.state.userLikes;
-    var sortedData = data.sort(compare);
+    function revereCompare(a,b){
+      if(a[`${name}`] < b[`${name}`]){
+        return 1;
+      }
+      if(a[`${name}`] > b[`${name}`]){
+        return -1;
+      }
+      return 0;
+    }
+    var data = dontTouchData;
+    var compareFunction;
+    if(this.state.alreadySorted){
+      compareFunction = revereCompare;
+    }else{
+      compareFunction = compare;
+    }
+    var sortedData = data.sort(compareFunction);
     this.setState({
-      userLikes: sortedData
+      userLikes: sortedData,
+      alreadySorted: !this.state.alreadySorted
     });
+
   }
 
   render(){
