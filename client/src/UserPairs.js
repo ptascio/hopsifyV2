@@ -29,8 +29,11 @@ class UserPairs extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      userLikes: []
+      userLikes: [],
+      datesSorted: true
     };
+    this.reverseDate = this.reverseDate.bind(this);
+    this.sortByName = this.sortByName.bind(this);
   }
 
   componentDidMount(){
@@ -40,7 +43,7 @@ class UserPairs extends React.Component {
   fetchPairs(){
     var userId = window.sessionStorage.hopsifyUserId;
     axios.get(`/api/userPairs/${userId}`).then((res) => {
-      console.log(res.data);
+
       this.setState({
         userLikes: res.data
       });
@@ -68,6 +71,50 @@ class UserPairs extends React.Component {
     return `${dayOfWeek}, ${month} ${day}, ${year}`;
   }
 
+  reverseDate(){
+    var data = this.state.userLikes;
+    var returnData;
+    if(this.state.datesSorted){
+      returnData = true;
+    }else{
+      returnData = false;
+    }
+    data = data.sort(function(a,b) {
+      var aDate = new Date(a.createdAt);
+      var bDate = new Date(b.createdAt);
+      aDate = aDate.getTime();
+      bDate = bDate.getTime();
+      if(returnData){
+        return bDate - aDate;
+      }else{
+        return aDate - bDate;
+      }
+    });
+    this.setState({
+      userLikes: data,
+      datesSorted: !returnData
+    });
+  }
+
+
+
+  sortByName(name){
+    function compare(a,b){
+      if(a[`${name}`] < b[`${name}`]){
+        return -1;
+      }
+      if(a[`${name}`] > b[`${name}`]){
+        return 1;
+      }
+      return 0;
+    }
+    var data = this.state.userLikes;
+    var sortedData = data.sort(compare);
+    this.setState({
+      userLikes: sortedData
+    });
+  }
+
   render(){
     let rows = this.state.userLikes.map((pair) => {
       var date = this.constructDate(pair.createdAt);
@@ -88,7 +135,8 @@ class UserPairs extends React.Component {
             <th scope="col">Delete</th>
             <th scope="col">Band</th>
             <th scope="col">Track</th>
-            <th scope="col">Beer</th>
+            <th scope="col" onClick={() => {this.sortByName("beerName")}}>Beer</th>
+            <th scope="col" onClick={this.reverseDate}>Date Added</th>
           </tr>
         </thead>
         <tbody>
