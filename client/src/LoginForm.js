@@ -76,8 +76,7 @@ class LoginForm extends React.Component {
   render(){
     return(
       <section>
-        <h1><a href="/">Hopsify</a></h1>
-        <img className="logo" src="../images/hopsifyLogo1.png" alt=""/>
+      
         <p>{this.state.currentUser}</p>
         <p>{this.state.notFound}</p>
         <p>Fill out the form:</p>

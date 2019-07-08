@@ -8,6 +8,10 @@ a {
   font-family: 'Raleway', sans-serif;
 }
 
+.mainLogo {
+  float: left;
+}
+
 .logo {
   width: 100px;
 }
