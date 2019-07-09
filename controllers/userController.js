@@ -13,9 +13,9 @@ module.exports = {
         user.comparePassword(req.body.password, function(nope, yup){
             if(nope){
               console.log(nope);
+              res.jsona("Something went wrong...");
             }else{
               console.log(yup);
-              console.log(user);
               res.json({email: user.email, _id: user._id, username: user.username});
             }
         });
