@@ -13,7 +13,7 @@ module.exports = {
         user.comparePassword(req.body.password, function(nope, yup){
             if(nope){
               console.log(nope);
-              res.jsona("Something went wrong...");
+              res.json("Something went wrong...");
             }else{
               console.log(yup);
               res.json({email: user.email, _id: user._id, username: user.username});
@@ -51,6 +51,18 @@ module.exports = {
     })
     .catch((err) => {
       console.log("err: " + err);
+    });
+  },
+  fetchUser: function(req, res){
+    db.User.findOne({
+      _id: req.params.id
+    }).then((user) => {
+      res.json({
+        email: user.email,
+        userName: user.username
+      });
+    }).catch((err) => {
+      res.json(err);
     });
   }
 };
