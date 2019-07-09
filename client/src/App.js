@@ -7,6 +7,7 @@ import FormAndInfo from "./FormAndInfo";
 import Beer from "./Beer";
 import LoginForm from "./LoginForm";
 import UserPairs from "./UserPairs";
+import UserProfile from "./UserProfile";
 const history = createBrowserHistory();
 
 class App extends React.Component {
@@ -61,6 +62,7 @@ class App extends React.Component {
             <Route path="/music" component={FormAndInfo} />
             <Route path="/beer" component={Beer} />
             <Route path="/pairs" component={UserPairs} />
+            <Route path="/profile" component={UserProfile} />
       </div>
     </Router>
   );}

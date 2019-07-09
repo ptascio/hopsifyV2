@@ -35,6 +35,9 @@ class Nav extends React.Component {
               <a href="/music">Search</a>
             </li>
             <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
               <Link to="/pairs">Pairs</Link>
             </li>
             <li>
