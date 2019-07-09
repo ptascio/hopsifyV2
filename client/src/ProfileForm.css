@@ -1,7 +1,9 @@
-.HideChangeName {
+.HideChangeName,
+.HideProfileName {
   display: none;
 }
 
-.ChangeName {
+.ChangeName,
+.ShowProfileName {
   display: block;
 }
