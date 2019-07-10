@@ -66,6 +66,12 @@ module.exports = {
     });
   },
   editProfileName: function(req, res) {
-    console.log(req.params);
+    db.User.findOneAndUpdate({_id: req.params.id},
+    {username: req.params.newUserName},
+    {new: true}).then((user) => {
+      res.json({userName: user.username});
+      }).catch((err) => {
+        res.json(err);
+      });
   }
 };

@@ -17,17 +17,18 @@ class UserProfile extends React.Component {
     };
     this.toggleProfileName = this.toggleProfileName.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.UpDateUsername = this.UpDateUsername.bind(this);
+    this.upDateUsername = this.upDateUsername.bind(this);
   }
 
   componentDidMount(){
     var id = window.sessionStorage.hopsifyUserId;
     var username;
     axios.get(`/api/fetch-user/${id}`).then((response) => {
+      console.log(response.data);
       if(!response.data.userName){
         username = "You still need to set your username.";
       }else{
-        username = response.data.username;
+        username = response.data.userName;
       }
       this.setState({
         email: response.data.email,
@@ -51,10 +52,15 @@ class UserProfile extends React.Component {
     });
 
   }
-  UpDateUsername(e){
+  upDateUsername(e){
     e.preventDefault();
     axios.patch(`/api/changeName/${this.state.userId}/${this.state.newUserName}`).then((response) => {
-      console.log(response);
+      this.setState({
+        userName: response.data.userName,
+        setUserName: false,
+        changeName: false,
+        newUserName: ""
+      });
     }).catch((err) => {
       console.log(err);
     });
@@ -71,7 +77,7 @@ class UserProfile extends React.Component {
         <div className={displayProfileName}>
         <p>Name: {this.state.userName}</p>{nameButton}
         </div>
-        <form className={profileNameClass} onSubmit={(event) => this.UpDateUsername(event)}>
+        <form className={profileNameClass} onSubmit={(event) => this.upDateUsername(event)}>
           <label>
             New Profile Name:
             <input name="newUserName" type="text" value={this.state.newUserName} onChange={this.handleChange}/>
