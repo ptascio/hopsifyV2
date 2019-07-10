@@ -16,6 +16,7 @@ class UserProfile extends React.Component {
     };
     this.toggleProfileName = this.toggleProfileName.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.upDateInfo = this.upDateInfo.bind(this);
   }
 
   componentDidMount(){
@@ -46,10 +47,12 @@ class UserProfile extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log(this.state);
-  }
-  changeUserName(){
 
+  }
+  upDateInfo(e, info){
+    e.preventDefault();
+    console.log("info" + info);
+    console.log(this.state);
   }
 
   render(){
@@ -63,7 +66,7 @@ class UserProfile extends React.Component {
         <div className={displayProfileName}>
         <p>Name: {this.state.userName}</p>{nameButton}
         </div>
-        <form className={profileNameClass}>
+        <form className={profileNameClass} onSubmit={(event) => this.upDateInfo(event, "changeName")}>
           <label>
             New Profile Name:
             <input name="newUserName" type="text" value={this.state.newUserName} onChange={this.handleChange}/>
