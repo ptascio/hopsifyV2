@@ -137,7 +137,8 @@ class UserPairs extends React.Component {
     let rows = this.state.userLikes.map((pair) => {
       var date = this.constructDate(pair.createdAt);
       return(<tr key={pair._id}>
-        <td id={pair._id} onClick={() => {this.removePair(pair._id)}}><img className={"LikedIcon"} src="../images/likedBottle.png" /></td>
+        <td id={pair._id} onClick={() => this.removePair(pair._id)}>
+          <img className={"LikedIcon"} src="../images/likedBottle.png" /></td>
         <td>{pair.bandName}</td>
         <td>{pair.trackName}</td>
         <td>{pair.beerName}</td>

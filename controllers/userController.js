@@ -64,5 +64,8 @@ module.exports = {
     }).catch((err) => {
       res.json(err);
     });
+  },
+  editProfileName: function(req, res) {
+    console.log(req.params);
   }
 };
