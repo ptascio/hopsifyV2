@@ -11,9 +11,11 @@ class UserProfile extends React.Component {
       newPassword: "",
       userPic: "",
       newUserName: "",
+      newEmail: "",
       setUserName: "",
       changeName: false,
       changeEmail: false,
+      revealForm: false,
       userId: ""
     };
     this.toggleProfileName = this.toggleProfileName.bind(this);
@@ -47,10 +49,14 @@ class UserProfile extends React.Component {
   toggleProfileName(t){
     console.log(t);
     this.setState({
-      [`${t}`]: !this.state[`${t}`]
+      [`${t}`]: !this.state[`${t}`],
+      revealForm: !this.state.revealForm,
+      newUserName: "",
+      newEmail: ""
     });
   }
   handleChange(e){
+    console.log(this.state.newUserName);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -78,21 +84,28 @@ class UserProfile extends React.Component {
     var nameButton = this.state.changeName ? <button onClick={() => this.toggleProfileName("changeName")}>Set profile name</button> : <button onClick={() => this.toggleProfileName("changeName")}>Edit profile name</button>;
     var emailButton = <button onClick={() => this.toggleProfileName("changeEmail")}>Edit profile email</button>;
     var closeButton = this.state.changeName ? <button type="button" onClick={() => this.toggleProfileName("changeName")}>Close Form</button> : <button type="button" onClick={() => this.toggleProfileName("changeEmail")}>Close Form</button>;
-    var profileClass = this.state.changeName ? "ChangeName" : "HideChangeName";
-    var displayProfileName = this.state.changeName ? "HideProfileName" : "ShowProfileName";
+    var labelValue = this.state.changeName ? "New Profile Name:" : "New Profile Email";
+    var inputName = this.state.changeName ? "newUserName" : "newEmail";
+    var inputPlaceholder = this.state.changeName ? this.state.userName : this.state.email;
+    var inputValue = this.state.changeName ? this.state.newUserName : this.state.newEmail;
+    var submitValue = this.state.changeName ? "Save Name" : "Save Email";
+    var profileClass = this.state.revealForm ? "ChangeName" : "HideChangeName";
+    var displayProfileClass = this.state.revealForm ? "HideProfileName" : "ShowProfileName";
     return(
       <section>
         <h1>Profile</h1>
-        <p>Email: {this.state.email}</p>{emailButton}
-        <div className={displayProfileName}>
+        <div className={displayProfileClass}>
+          <p>Email: {this.state.email}</p>{emailButton}
+        </div>
+        <div className={displayProfileClass}>
           <p>Name: {this.state.userName}</p>{nameButton}
         </div>
         <form className={profileClass} onSubmit={(event) => this.upDateUsername(event)}>
           <label>
-            New Profile Name:
-            <input name="newUserName" placeholder={this.state.userName} type="text" value={this.state.newUserName} onChange={this.handleChange}/>
+            {labelValue}
+            <input name={inputName} placeholder={inputPlaceholder} type="text" value={inputValue} onChange={this.handleChange}/>
           </label>
-          <input type="submit" value="Save Name" />
+          <input type="submit" value={submitValue} />
           {closeButton}
         </form>
       </section>
