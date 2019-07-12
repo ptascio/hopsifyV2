@@ -13,6 +13,7 @@ class UserProfile extends React.Component {
       newUserName: "",
       setUserName: "",
       changeName: false,
+      changeEmail: false,
       userId: ""
     };
     this.toggleProfileName = this.toggleProfileName.bind(this);
@@ -36,7 +37,7 @@ class UserProfile extends React.Component {
         email: response.data.email,
         userName: username,
         userId: id,
-        setUserName: setusername
+        changeName: setusername
       });
     }).catch((error) => {
       console.log(error);
@@ -46,7 +47,7 @@ class UserProfile extends React.Component {
   toggleProfileName(t){
     console.log(t);
     this.setState({
-      changeName: !this.state.changeName
+      [`${t}`]: !this.state[`${t}`]
     });
   }
   handleChange(e){
@@ -74,9 +75,10 @@ class UserProfile extends React.Component {
   }
 
   render(){
-    var nameButton = this.state.setUserName ? <button onClick={() => this.toggleProfileName("name")}>Set profile name</button> : <button onClick={() => this.toggleProfileName("name")}>Edit profile name</button> ;
-    var emailButton = <button onClick={() => this.toggleProfileName("email")}>Edit profile email</button>;
-    var profileNameClass = this.state.changeName ? "ChangeName" : "HideChangeName";
+    var nameButton = this.state.changeName ? <button onClick={() => this.toggleProfileName("changeName")}>Set profile name</button> : <button onClick={() => this.toggleProfileName("changeName")}>Edit profile name</button>;
+    var emailButton = <button onClick={() => this.toggleProfileName("changeEmail")}>Edit profile email</button>;
+    var closeButton = this.state.changeName ? <button type="button" onClick={() => this.toggleProfileName("changeName")}>Close Form</button> : <button type="button" onClick={() => this.toggleProfileName("changeEmail")}>Close Form</button>;
+    var profileClass = this.state.changeName ? "ChangeName" : "HideChangeName";
     var displayProfileName = this.state.changeName ? "HideProfileName" : "ShowProfileName";
     return(
       <section>
@@ -85,13 +87,13 @@ class UserProfile extends React.Component {
         <div className={displayProfileName}>
           <p>Name: {this.state.userName}</p>{nameButton}
         </div>
-        <form className={profileNameClass} onSubmit={(event) => this.upDateUsername(event)}>
+        <form className={profileClass} onSubmit={(event) => this.upDateUsername(event)}>
           <label>
             New Profile Name:
             <input name="newUserName" placeholder={this.state.userName} type="text" value={this.state.newUserName} onChange={this.handleChange}/>
           </label>
           <input type="submit" value="Save Name" />
-          <button type="button" onClick={this.toggleProfileName}>Close Form</button>
+          {closeButton}
         </form>
       </section>
     );
