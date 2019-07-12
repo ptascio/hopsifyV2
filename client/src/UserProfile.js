@@ -11,7 +11,7 @@ class UserProfile extends React.Component {
       newPassword: "",
       userPic: "",
       newUserName: "",
-      setUserName: false,
+      setUserName: "",
       changeName: false,
       userId: ""
     };
@@ -23,18 +23,20 @@ class UserProfile extends React.Component {
   componentDidMount(){
     var id = window.sessionStorage.hopsifyUserId;
     var username;
+    var setusername;
     axios.get(`/api/fetch-user/${id}`).then((response) => {
-      console.log(response.data);
       if(!response.data.userName){
         username = "You still need to set your username.";
+        setusername = true;
       }else{
         username = response.data.userName;
+        setusername = false;
       }
       this.setState({
         email: response.data.email,
         userName: username,
         userId: id,
-        setUserName: true
+        setUserName: setusername
       });
     }).catch((error) => {
       console.log(error);
@@ -54,16 +56,20 @@ class UserProfile extends React.Component {
   }
   upDateUsername(e){
     e.preventDefault();
-    axios.patch(`/api/changeName/${this.state.userId}/${this.state.newUserName}`).then((response) => {
-      this.setState({
-        userName: response.data.userName,
-        setUserName: false,
-        changeName: false,
-        newUserName: ""
+    if(this.state.newUserName.length > 0){
+      axios.patch(`/api/changeName/${this.state.userId}/${this.state.newUserName}`).then((response) => {
+        this.setState({
+          userName: response.data.userName,
+          setUserName: false,
+          changeName: false,
+          newUserName: ""
+        });
+      }). catch((err) => {
+        console.log(err);
       });
-    }).catch((err) => {
-      console.log(err);
-    });
+    }else{
+      alert("Username cannot be empty");
+    }
   }
 
   render(){
@@ -80,9 +86,10 @@ class UserProfile extends React.Component {
         <form className={profileNameClass} onSubmit={(event) => this.upDateUsername(event)}>
           <label>
             New Profile Name:
-            <input name="newUserName" type="text" value={this.state.newUserName} onChange={this.handleChange}/>
+            <input name="newUserName" placeholder={this.state.userName} type="text" value={this.state.newUserName} onChange={this.handleChange}/>
           </label>
           <input type="submit" value="Save Name" />
+          <button type="button" onClick={this.toggleProfileName}>Close Form</button>
         </form>
       </section>
     );
